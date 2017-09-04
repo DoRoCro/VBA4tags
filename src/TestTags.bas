@@ -181,11 +181,14 @@ Public Sub TestReadTableCreateTags()
         tag.TagID = tagArray(x, 1)
         tag.TagDescription = tagArray(x, 2)
         With tag
-            Debug.Print .TagID, .TagDescription
+            Debug.Print x, .TagID, .TagDescription
         End With
     Next x
     'Assert:
+    Debug.Print x, UBound(tagArray), LBound(tagArray)
     Assert.isTrue (tag.TagID = "E-K-2421")
+    Assert.isTrue (x = 3)  'NB - runs over end of table...
+    Assert.isTrue (UBound(tagArray) - LBound(tagArray) + 1 = 2) '
 
 TestExit:
     Exit Sub
