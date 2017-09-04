@@ -45,7 +45,7 @@ Public Sub TestGetLetTagID()
     'Act:
     tag.TagID = "TEST-TAG"
     'Assert:
-    Assert.IsTrue ("TEST-TAG" = tag.TagID)
+    Assert.isTrue ("TEST-TAG" = tag.TagID)
 
 TestExit:
     Exit Sub
@@ -64,7 +64,7 @@ Public Sub TestGetLetTagDescription()
     'Act:
     tag.TagDescription = strTagDesc
     'Assert:
-    Assert.IsTrue ("TEST-TAG-DESC" = tag.TagDescription)
+    Assert.isTrue ("TEST-TAG-DESC" = tag.TagDescription)
 
 TestExit:
     Exit Sub
@@ -88,7 +88,7 @@ Public Sub TestGetTagIDFromCell()
     tag.TagID = ws.Cells(2, 1).Value
     Debug.Print tag.TagID
     'Assert:
-    Assert.IsTrue (tag.TagID = "AB12345A")
+    Assert.isTrue (tag.TagID = "AB12345A")
 
 TestExit:
     Exit Sub
@@ -110,7 +110,7 @@ Public Sub TestGetTagDescFromCell()
     tag.TagID = ws.Cells(2, 2).Value
     Debug.Print tag.TagID
     'Assert:
-    Assert.IsTrue (tag.TagID = "A TAG FOR TESTING")
+    Assert.isTrue (tag.TagID = "A TAG FOR TESTING")
 
 TestExit:
     Exit Sub
@@ -146,7 +146,46 @@ Public Sub TestGetTagFromTable()
     Next x
 
     'Assert:
-    Assert.IsTrue (tbl.Name = "TagMinimal")
+    Assert.isTrue (tbl.Name = "TagMinimal")
+
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+End Sub
+
+'@TestMethod
+Public Sub TestReadTableCreateTags()
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Dim tag As clsTag
+    Dim tags As Collection
+    Dim wb As Workbook
+    Dim ws As Worksheet
+    Dim tbl As ListObject
+    Dim tagArray As Variant
+    Dim x As Integer
+    
+    'Act:
+    Set wb = ThisWorkbook
+    Set ws = wb.Worksheets("TestingData")
+    Set tag = New clsTag
+    Set tags = New Collection
+    Set tbl = ws.ListObjects("TagMinimal")
+    Debug.Print tbl.Name
+    'Create Array List from Table
+    tagArray = tbl.DataBodyRange
+    'Loop through each item in Third Column of Table (displayed in Immediate Window [ctrl + g])
+    For x = LBound(tagArray) To UBound(tagArray)
+        tag.TagID = tagArray(x, 1)
+        tag.TagDescription = tagArray(x, 2)
+        With tag
+            Debug.Print .TagID, .TagDescription
+        End With
+    Next x
+    'Assert:
+    Assert.isTrue (tag.TagID = "E-K-2421")
 
 TestExit:
     Exit Sub
