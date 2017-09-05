@@ -188,7 +188,48 @@ Public Sub TestReadTableCreateTags()
     Debug.Print x, UBound(tagArray), LBound(tagArray)
     Assert.isTrue (tag.TagID = "E-K-2421")
     Assert.isTrue (x = 3)  'NB - runs over end of table...
-    Assert.isTrue (UBound(tagArray) - LBound(tagArray) + 1 = 2) '
+    Assert.isTrue (UBound(tagArray) - LBound(tagArray) + 1 = 2) 'Appears to default to 1 indexing
+
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+End Sub
+
+'@TestMethod
+Public Sub TestReadLotsOfTags() 'TODO Rename test
+    On Error GoTo TestFail
+    
+    Dim tag As clsTag
+    Dim tags As Collection
+    Dim wb As Workbook
+    Dim ws As Worksheet
+    Dim tbl As ListObject
+    Dim tagArray As Variant
+    Dim x As Long          ' >32000 entries
+    
+    'Act:
+    Set wb = Application.Workbooks("Criticality Assignment Spreadsheet 2017-09-04.xlsx")
+    Set ws = wb.Worksheets("AssetRegisterTbl")
+    Set tag = New clsTag
+    Set tags = New Collection
+    Set tbl = ws.ListObjects("AssetRegisterTbl")
+    Debug.Print tbl.Name
+    'Create Array List from Table
+    tagArray = tbl.DataBodyRange
+    'Loop through each item in Third Column of Table (displayed in Immediate Window [ctrl + g])
+    For x = LBound(tagArray) To UBound(tagArray)
+        tag.TagID = tagArray(x, 1)
+        tag.TagDescription = tagArray(x, 2)
+        With tag
+            'Debug.Print x, .TagID, .TagDescription
+        End With
+    Next x
+    'Assert:
+    Debug.Print x, UBound(tagArray), LBound(tagArray)
+    Assert.isTrue (tag.TagID = "BP")
+    Assert.isTrue (x = 104573)  'NB - runs over end of table...
+    Assert.isTrue (UBound(tagArray) - LBound(tagArray) + 1 = 2) 'Appears to default to 1 indexing
 
 TestExit:
     Exit Sub
