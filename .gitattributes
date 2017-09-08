@@ -1,3 +1,4 @@
-*.xlsx diff=excel
+*.xlsx diff=excel 
+
 *.xlsm diff=excel
 
