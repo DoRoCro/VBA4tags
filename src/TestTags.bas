@@ -227,9 +227,10 @@ Public Sub TestReadLotsOfTags() 'TODO Rename test
     Next x
     'Assert:
     Debug.Print x, UBound(tagArray), LBound(tagArray)
+    Debug.Print tag.TagID, tag.TagDescription
     Assert.isTrue (tag.TagID = "BP")
-    Assert.isTrue (x = 104573)  'NB - runs over end of table...
-    Assert.isTrue (UBound(tagArray) - LBound(tagArray) + 1 = 2) 'Appears to default to 1 indexing
+    Assert.isTrue (x = 104574)  'NB - runs over end of table...
+    Assert.isTrue (UBound(tagArray) - LBound(tagArray) + 1 = 104573) 'Appears to default to 1 indexing
 
 TestExit:
     Exit Sub
