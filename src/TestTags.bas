@@ -45,7 +45,7 @@ Public Sub TestGetLetTagID()
     'Act:
     tag.TagID = "TEST-TAG"
     'Assert:
-    Assert.isTrue ("TEST-TAG" = tag.TagID)
+    Assert.IsTrue ("TEST-TAG" = tag.TagID)
 
 TestExit:
     Exit Sub
@@ -64,7 +64,7 @@ Public Sub TestGetLetTagDescription()
     'Act:
     tag.TagDescription = strTagDesc
     'Assert:
-    Assert.isTrue ("TEST-TAG-DESC" = tag.TagDescription)
+    Assert.IsTrue ("TEST-TAG-DESC" = tag.TagDescription)
 
 TestExit:
     Exit Sub
@@ -88,7 +88,7 @@ Public Sub TestGetTagIDFromCell()
     tag.TagID = ws.Cells(2, 1).Value
     Debug.Print tag.TagID
     'Assert:
-    Assert.isTrue (tag.TagID = "AB12345A")
+    Assert.IsTrue (tag.TagID = "AB12345A")
 
 TestExit:
     Exit Sub
@@ -110,7 +110,7 @@ Public Sub TestGetTagDescFromCell()
     tag.TagID = ws.Cells(2, 2).Value
     Debug.Print tag.TagID
     'Assert:
-    Assert.isTrue (tag.TagID = "A TAG FOR TESTING")
+    Assert.IsTrue (tag.TagID = "A TAG FOR TESTING")
 
 TestExit:
     Exit Sub
@@ -146,7 +146,7 @@ Public Sub TestGetTagFromTable()
     Next x
 
     'Assert:
-    Assert.isTrue (tbl.Name = "TagMinimal")
+    Assert.IsTrue (tbl.Name = "TagMinimal")
 
 TestExit:
     Exit Sub
@@ -186,9 +186,9 @@ Public Sub TestReadTableCreateTags()
     Next x
     'Assert:
     Debug.Print x, UBound(tagArray), LBound(tagArray)
-    Assert.isTrue (tag.TagID = "E-K-2421")
-    Assert.isTrue (x = 3)  'NB - runs over end of table...
-    Assert.isTrue (UBound(tagArray) - LBound(tagArray) + 1 = 2) 'Appears to default to 1 indexing
+    Assert.IsTrue (tag.TagID = "E-K-2421")
+    Assert.IsTrue (x = 3)  'NB - runs over end of table...
+    Assert.IsTrue (UBound(tagArray) - LBound(tagArray) + 1 = 2) 'Appears to default to 1 indexing
 
 TestExit:
     Exit Sub
@@ -197,7 +197,7 @@ TestFail:
 End Sub
 
 '@TestMethod
-Public Sub TestReadLotsOfTags() 'TODO Rename test
+Public Sub TestReadLotsOfTags()
     On Error GoTo TestFail
     
     Dim tag As clsTag
@@ -228,9 +228,9 @@ Public Sub TestReadLotsOfTags() 'TODO Rename test
     'Assert:
     Debug.Print x, UBound(tagArray), LBound(tagArray)
     Debug.Print tag.TagID, tag.TagDescription
-    Assert.isTrue (tag.TagID = "BP")
-    Assert.isTrue (x = 104574)  'NB - runs over end of table...
-    Assert.isTrue (UBound(tagArray) - LBound(tagArray) + 1 = 104573) 'Appears to default to 1 indexing
+    Assert.IsTrue (tag.TagID = "BP")
+    Assert.IsTrue (x = 104574)  'NB - runs over end of table...
+    Assert.IsTrue (UBound(tagArray) - LBound(tagArray) + 1 = 104573) 'Appears to default to 1 indexing
 
 TestExit:
     Exit Sub
