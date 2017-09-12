@@ -9,12 +9,14 @@ Sub CreateWorksheetsFromFailureCodeList()
     Dim tbl, fCodesTbl As ListObject
     Dim row As ListRow
     Dim rowsWithTagsCount As Integer
-    
+    Dim fcdcTbl As ListObject    'Failure code default criticalities table
     
     Set wb = Workbooks(wbCriticality)
     Set ws = wb.Worksheets("FailureCodes")
     Set templateWs = wb.Worksheets("FailureCodeTemplate")
     Set tbl = ws.ListObjects("ASSET_C_FailureCodesList")
+    Set fcdcWs = wb.Worksheets("FailurecodeDefaultCriticality")
+    Set fcdcTbl = fcdcWs.ListObjects("FailurecodeDefaultCriticalities_Table")
     
     
     ' Debug.Print [ASSET_C_FailureCodesList[FailureCode]].Rows.Count
@@ -53,22 +55,46 @@ End Sub
 Function rowCell(row As ListRow, col As String) As Range
     Set rowCell = Intersect(row.Range, row.Parent.ListColumns(col).Range)
 End Function
+
+Function getRow(Table As ListObject, ColumnName As String, Key As String) As ListRow
+    On Error Resume Next
+    Dim row As ListRow
+    'Set GetRow = Table.ListColumns(ColumnName) _
+    '    .Rows(WorksheetFunction.Match(Key, Table.ListColumns(ColumnName).Range, 0))
+    
+    For Each row In Table.ListRows
+        If rowCell(row, ColumnName).Value = Key Then
+            Set getRow = row
+            Exit Function
+        End If
+    Next
+    If Err.Number <> 0 Then
+        Err.Clear
+        Set getRow = Nothing
+    End If
+End Function
+
 'This could be copied to FailureCodeDefaultCriticality worksheet code
-Sub CopyDefaultCriticalitiesIntoTemplateWorksheet(codeRow As ListRow, ws As Worksheet)
+Sub CopyDefaultCriticalitiesIntoTemplateWorksheet(codeRow As ListRow, _
+                                                  ws As Worksheet, _
+                                                  fcdcTbl As ListObject)
 
     Dim wb As Workbook
-    Dim fcdcWs As Worksheet
     Dim codeStr As String
-    Dim fcdcTbl As ListObject
+    Dim defaultsRow As ListRow
     
-    Set wb = Workbooks(wbCriticality)
-    Set fcdcWs = wb.Worksheets("FailurecodeDefaultCriticality")
-    Set fcdcTbl = fcdcWs.ListObjects("FailurecodeDefaultCriticalities_Table")
+    'Set wb = Workbooks(wbCriticality)
     
     codeStr = rowCell(codeRow, "FailureCode").Value
+    Set defaultsRow = getRow(fcdcTbl, "FailureCode", codeStr)
+    
+    Debug.Print defaultsRow.Range.Address
+    
     With ws      'remember this is the target ws
         .Range("B1").Formula = rowCell(codeRow, "FailureCode")
         .Range("B2").Formula = rowCell(codeRow, "Description")
-        
+        ' find row in fcdcTbl then lookup value
+        .Range("B16").Formula = Left(rowCell(defaultsRow, "SC_Impact"), 1)
+        .Range("C16").Formula = rowCell(defaultsRow, "SC_Likelihood")
     End With
 End Sub

@@ -37,14 +37,38 @@ Public Sub TestCopyDefaultCriticalitiesIntoTemplateWorksheet()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim codeRow As ListRow
-    Set codeRow = ThisWorkbook.Worksheets("TestDefaultCriticalities").ListObjects("TestFailureCodeDefaultCriticalitiesTable").ListRows(1)
+    Dim codesTable As ListObject 'this is the failure codes table
+    Dim codeRow As ListRow       'this is the row in the falure codes table
+    Dim defaultsTable As ListObject  'this is the table with default values for a failure code
+    
+    Set codesTable = ThisWorkbook.Worksheets("TestDefaultCriticalities").ListObjects("TestFailureCodeDefaultCriticalitiesTable")
+    Set codeRow = codesTable.ListRows(1)
+    
+    'Set initial value to something that shouldn't be there at end
+    'Safety
+    ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("B16").Formula = "AA"
+    ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("C16").Value = 9
+    'Env
+    ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("B22").Formula = "AA"
+    ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("C22").Value = 9
+    'Prod
+    ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("B28").Formula = "AA"
+    ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("C28").Value = 9
+    'Non-Financial business
+    ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("B34").Formula = "AA"
+    ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("C34").Value = 9
+    'using the same table under two names here, this one need the lookup as it might be different order to above
+    Set defaultsTable = ThisWorkbook.Worksheets("TestDefaultCriticalities").ListObjects("TestFailureCodeDefaultCriticalitiesTable")
+    
     'Act:
-    Call CopyDefaultCriticalitiesIntoTemplateWorksheet(codeRow, ThisWorkbook.Worksheets("TestFailureCodeTemplate"))
+    Call CopyDefaultCriticalitiesIntoTemplateWorksheet(codeRow, ThisWorkbook.Worksheets("TestFailureCodeTemplate"), defaultsTable)
     'Assert:
     Debug.Print ThisWorkbook.Worksheets("TestDefaultCriticalities").Range("B1").Formula
     Assert.IsTrue ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("B1").Formula = "FA_CFBC"
-
+    Assert.IsTrue ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("B16").Formula = "E"
+    Assert.IsTrue ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("C16").Value = 8
+    Assert.IsTrue ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("B22").Formula = "H"
+    Assert.IsTrue ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("C22").Formula = "2"
 TestExit:
     Exit Sub
 TestFail:
