@@ -40,12 +40,12 @@ Public Sub TestGetLetTagID()
     
     'Arrange:
     Dim tag As clsTag
-    Const strTag = "TEST-TAG"
+    Const strTag As String = "TEST-TAG"
     Set tag = New clsTag
     'Act:
-    tag.TagID = "TEST-TAG"
+    tag.TagID = strTag
     'Assert:
-    Assert.IsTrue ("TEST-TAG" = tag.TagID)
+    Assert.Istrue (strTag = tag.TagID)
 
 TestExit:
     Exit Sub
@@ -59,12 +59,12 @@ Public Sub TestGetLetTagDescription()
     
     'Arrange:
     Dim tag As clsTag
-    Const strTagDesc = "TEST-TAG-DESC"
+    Const strTagDesc As String = "TEST-TAG-DESC"
     Set tag = New clsTag
     'Act:
     tag.TagDescription = strTagDesc
     'Assert:
-    Assert.IsTrue ("TEST-TAG-DESC" = tag.TagDescription)
+    Assert.Istrue ("TEST-TAG-DESC" = tag.TagDescription)
 
 TestExit:
     Exit Sub
@@ -88,7 +88,7 @@ Public Sub TestGetTagIDFromCell()
     tag.TagID = ws.Cells(2, 1).Value
     Debug.Print tag.TagID
     'Assert:
-    Assert.IsTrue (tag.TagID = "AB12345A")
+    Assert.Istrue (tag.TagID = "AB12345A")
 
 TestExit:
     Exit Sub
@@ -110,7 +110,7 @@ Public Sub TestGetTagDescFromCell()
     tag.TagID = ws.Cells(2, 2).Value
     Debug.Print tag.TagID
     'Assert:
-    Assert.IsTrue (tag.TagID = "A TAG FOR TESTING")
+    Assert.Istrue (tag.TagID = "A TAG FOR TESTING")
 
 TestExit:
     Exit Sub
@@ -146,7 +146,7 @@ Public Sub TestGetTagFromTable()
     Next x
 
     'Assert:
-    Assert.IsTrue (tbl.Name = "TagMinimal")
+    Assert.Istrue (tbl.Name = "TagMinimal")
 
 TestExit:
     Exit Sub
@@ -186,9 +186,9 @@ Public Sub TestReadTableCreateTags()
     Next x
     'Assert:
     Debug.Print x, UBound(tagArray), LBound(tagArray)
-    Assert.IsTrue (tag.TagID = "E-K-2421")
-    Assert.IsTrue (x = 3)  'NB - runs over end of table...
-    Assert.IsTrue (UBound(tagArray) - LBound(tagArray) + 1 = 2) 'Appears to default to 1 indexing
+    Assert.Istrue (tag.TagID = "E-K-2421")
+    Assert.Istrue (x = 3)  'NB - runs over end of table...
+    Assert.Istrue (UBound(tagArray) - LBound(tagArray) + 1 = 2) 'Appears to default to 1 indexing
 
 TestExit:
     Exit Sub

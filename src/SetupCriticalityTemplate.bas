@@ -1,12 +1,15 @@
 Attribute VB_Name = "SetupCriticalityTemplate"
-Const wbCriticality = "WND Criticality Template.xlsx"
+Option Explicit
+
+Const wbCriticality As String = "WND Criticality Template.xlsx"
 
 Sub CreateWorksheetsFromFailureCodeList()
     Dim wb As Workbook
     Dim ws As Worksheet
     Dim newWs As Worksheet
     Dim templateWs As Worksheet
-    Dim tbl, fCodesTbl As ListObject
+    Dim tbl As ListObject
+    Dim fCodesTbl As ListObject
     Dim row As ListRow
     Dim rowsWithTagsCount As Integer
     Dim fcdcTbl As ListObject    'Failure code default criticalities table
@@ -94,7 +97,21 @@ Sub CopyDefaultCriticalitiesIntoTemplateWorksheet(codeRow As ListRow, _
         .Range("B1").Formula = rowCell(codeRow, "FailureCode")
         .Range("B2").Formula = rowCell(codeRow, "Description")
         ' find row in fcdcTbl then lookup value
+        'Safety
         .Range("B16").Formula = Left(rowCell(defaultsRow, "SC_Impact"), 1)
         .Range("C16").Formula = rowCell(defaultsRow, "SC_Likelihood")
+        'Environmental
+        .Range("B22").Formula = Left(rowCell(defaultsRow, "EC_Impact"), 1)
+        .Range("C22").Formula = rowCell(defaultsRow, "EC_Likelihood")
+        'Production
+        .Range("B28").Formula = Left(rowCell(defaultsRow, "PC_Impact"), 1)
+        .Range("C28").Formula = rowCell(defaultsRow, "PC_Likelihood")
+        'Non-financial business
+        .Range("B34").Formula = Left(rowCell(defaultsRow, "SC_Impact"), 1)
+        .Range("C34").Formula = rowCell(defaultsRow, "SC_Likelihood")
+        
     End With
 End Sub
+
+
+
