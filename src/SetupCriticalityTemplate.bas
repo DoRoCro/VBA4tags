@@ -87,7 +87,7 @@ Sub CopyDefaultCriticalitiesIntoTemplateWorksheet(codeRow As ListRow, _
     Dim codeStr As String
     Dim defaultsRow As ListRow
     
-    'Set wb = Workbooks(wbCriticality)
+    Set wb = Workbooks(wbCriticality)
     
     codeStr = rowCell(codeRow, "FailureCode").Value
     Set defaultsRow = getRow(fcdcTbl, "FailureCode", codeStr)
@@ -115,8 +115,31 @@ Sub CopyDefaultCriticalitiesIntoTemplateWorksheet(codeRow As ListRow, _
         .Range("C34").Formula = rowCell(defaultsRow, "BC_Likelihood")
         .Range("F34").Formula = rowCell(defaultsRow, "Basis")
         
+        'insert default MAH barrier entries
+        ' find row in default MAH bariers lookup table, ' insert it into H16 and H17
+        .Range("H17") = getDefaultMAHBarrierForFailureCode(codeStr, "MAH_Barrier_Family")
+        .Range("I17") = getDefaultMAHBarrierForFailureCode(codeStr)
+        .Range("I19") = getDefaultMAHBarrierForFailureCode(codeStr, "Comment")
+        
+        
+        
     End With
 End Sub
 
+Function getDefaultMAHBarrierForFailureCode(codeStr As String, Optional field As String = "MAH_Barrier_Component")
+    
+    Dim wb As Workbook
+    Dim MAHws As Worksheet
+    Dim MAHtbl As ListObject
+    Dim MAHrow As ListRow
+    Set wb = Workbooks(wbCriticality)
+    Set MAHws = wb.Worksheets("MAHBarrierSetup")
+    Set MAHtbl = MAHws.ListObjects("MAHBarrierForFailureCode")
+    ' find row in table based on failure code
+    Set MAHrow = getRow(MAHtbl, "FailureCode", codeStr)
+    
+    getDefaultMAHBarrierForFailureCode = rowCell(MAHrow, field)
+
+End Function
 
 
