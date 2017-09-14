@@ -100,15 +100,19 @@ Sub CopyDefaultCriticalitiesIntoTemplateWorksheet(codeRow As ListRow, _
         'Safety
         .Range("B16").Formula = Left(rowCell(defaultsRow, "SC_Impact"), 1)
         .Range("C16").Formula = rowCell(defaultsRow, "SC_Likelihood")
+        .Range("F16").Formula = rowCell(defaultsRow, "Basis")
         'Environmental
         .Range("B22").Formula = Left(rowCell(defaultsRow, "EC_Impact"), 1)
         .Range("C22").Formula = rowCell(defaultsRow, "EC_Likelihood")
+        .Range("F22").Formula = rowCell(defaultsRow, "Basis")
         'Production
         .Range("B28").Formula = Left(rowCell(defaultsRow, "PC_Impact"), 1)
         .Range("C28").Formula = rowCell(defaultsRow, "PC_Likelihood")
+        .Range("F28").Formula = rowCell(defaultsRow, "Basis")
         'Non-financial business
         .Range("B34").Formula = Left(rowCell(defaultsRow, "SC_Impact"), 1)
         .Range("C34").Formula = rowCell(defaultsRow, "SC_Likelihood")
+        .Range("F34").Formula = rowCell(defaultsRow, "Basis")
         
     End With
 End Sub
