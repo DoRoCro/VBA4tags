@@ -8,7 +8,7 @@ Sub CreateWorksheetsFromFailureCodeList()
     Dim ws As Worksheet
     Dim newWs As Worksheet
     Dim templateWs As Worksheet
-    Dim fscdWs As Worksheet
+    Dim fcdcWs As Worksheet
     Dim tbl As ListObject
     Dim fCodesTbl As ListObject
     Dim row As ListRow
@@ -41,7 +41,7 @@ Sub CreateWorksheetsFromFailureCodeList()
             newWs.Name = rowCell(row, "FailureCode")  ' name sheet from failure code
             
             ' Insert default criticality assessment template here
-            Call CopyDefaultCriticalitiesIntoTemplateWorksheet(row, newWs)
+            Call CopyDefaultCriticalitiesIntoTemplateWorksheet(row, newWs, fcdcTbl)
             
             ' link output back to Failure codes sheet
         End If
