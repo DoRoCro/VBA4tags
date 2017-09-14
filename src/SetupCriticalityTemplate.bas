@@ -8,6 +8,7 @@ Sub CreateWorksheetsFromFailureCodeList()
     Dim ws As Worksheet
     Dim newWs As Worksheet
     Dim templateWs As Worksheet
+    Dim fscdWs As Worksheet
     Dim tbl As ListObject
     Dim fCodesTbl As ListObject
     Dim row As ListRow
@@ -110,8 +111,8 @@ Sub CopyDefaultCriticalitiesIntoTemplateWorksheet(codeRow As ListRow, _
         .Range("C28").Formula = rowCell(defaultsRow, "PC_Likelihood")
         .Range("F28").Formula = rowCell(defaultsRow, "Basis")
         'Non-financial business
-        .Range("B34").Formula = Left(rowCell(defaultsRow, "SC_Impact"), 1)
-        .Range("C34").Formula = rowCell(defaultsRow, "SC_Likelihood")
+        .Range("B34").Formula = Left(rowCell(defaultsRow, "BC_Impact"), 1)
+        .Range("C34").Formula = rowCell(defaultsRow, "BC_Likelihood")
         .Range("F34").Formula = rowCell(defaultsRow, "Basis")
         
     End With
