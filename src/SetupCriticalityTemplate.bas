@@ -47,9 +47,9 @@ Sub CreateWorksheetsFromFailureCodeList()
         End If
         
         ' testing break after 5 to avoid deleting too many
-        If rowsWithTagsCount >= 5 Then
-            Exit For
-        End If
+'        If rowsWithTagsCount >= 5 Then
+'            Exit For
+'        End If
        
         
     Next
@@ -97,6 +97,8 @@ Sub CopyDefaultCriticalitiesIntoTemplateWorksheet(codeRow As ListRow, _
     With ws      'remember this is the target ws
         .Range("B1").Formula = rowCell(codeRow, "FailureCode")
         .Range("B2").Formula = rowCell(codeRow, "Description")
+        
+        .Range("G1").Formula = rowCell(codeRow, "Number found in ASSET-C WND")
         ' find row in fcdcTbl then lookup value
         'Safety
         .Range("B16").Formula = Left(rowCell(defaultsRow, "SC_Impact"), 1)
