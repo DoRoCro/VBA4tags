@@ -92,6 +92,12 @@ Sub CopyDefaultCriticalitiesIntoTemplateWorksheet(codeRow As ListRow, _
     codeStr = rowCell(codeRow, "FailureCode").Value
     Set defaultsRow = getRow(fcdcTbl, "FailureCode", codeStr)
     
+'    'Workaround for problem code if #N/A unexpectedly
+'    If codeStr = "FA_SQFC" Then
+'        MsgBox "Missing code " & codeStr
+'        Exit Sub
+'    End If
+    
     Debug.Print defaultsRow.Range.Address
     
     With ws      'remember this is the target ws

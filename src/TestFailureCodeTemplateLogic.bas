@@ -36,7 +36,7 @@ Public Sub ModuleCleanup()
     Next
     
     'Set redundancy to no
-    ws.Range("G8").Formula = "No"
+    ws.Range("G9").Formula = "No"
     
     'Set MAH barriers to blank
     ws.Range("H17").Formula = ""
@@ -68,7 +68,7 @@ Public Sub TestInitialize()
     Next
     
     'Set redundancy to no
-    ws.Range("G8").Formula = "No"
+    ws.Range("G9").Formula = "No"
     
     'Set MAH barriers to blank
     ws.Range("H17").Formula = ""
@@ -99,7 +99,7 @@ Public Sub TestInitialStateGivesC()
 
     'Assert:
     Assert.Istrue (ws.Range("K1") = "C")
-    Assert.Istrue (ws.Range("G5").Value = "NO") ' not SCE
+    Assert.Istrue (ws.Range("G6").Value = "NO") ' not SCE
 
 TestExit:
     Exit Sub
@@ -117,7 +117,7 @@ Public Sub TestSafetyA1GivesCAndSCE()
     ws.Range("B16").Formula = "A"
     'Assert:
     Assert.Istrue (ws.Range("K1") = "C")
-    Assert.Istrue (ws.Range("G5").Value = "YES")   ' is SCE
+    Assert.Istrue (ws.Range("G6").Value = "YES")   ' is SCE
 TestExit:
     Exit Sub
 TestFail:
@@ -136,8 +136,8 @@ Public Sub TestSafetyA7GivesCAndSCE()
     
     'Assert:
     Assert.Istrue (ws.Range("K1") = "C")        ' no rule explicitly sets high criticality from safety impact, but expect MAH override in practice
-    Assert.Istrue (ws.Range("G5").Value = "YES")   ' is SCE
-    Assert.Istrue (ws.Range("G7").Value = 10)   ' CMMS Location priority
+    Assert.Istrue (ws.Range("G6").Value = "YES")   ' is SCE
+    Assert.Istrue (ws.Range("G8").Value = 10)   ' CMMS Location priority
     
 TestExit:
     Exit Sub
