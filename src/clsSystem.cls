@@ -9,14 +9,17 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 '@Folder("VBAProject")
 
-Private pSystemID As Integer
+Private pSystemID As String
 Private pDescription As String
-Private pFluidType As String
+'Private pFluidType As String
+Private pSystemNumber As String
 
-Public Property Get SystemID() As Integer
+Private pIsUtility As Boolean
+
+Public Property Get SystemID() As String
     SystemID = pSystemID
 End Property
-Public Property Let SystemID(Value As Integer)
+Public Property Let SystemID(Value As String)
     pSystemID = Value
 End Property
 
@@ -26,11 +29,24 @@ End Property
 Public Property Let Description(Value As String)
     pDescription = Value
 End Property
+Public Property Get SystemNumber() As String
+    SystemNumber = pSystemNumber
+End Property
+Public Property Let SystemNumber(Value As String)
+    pSystemNumber = Value
+End Property
 
 Public Property Get FluidType() As String
     FluidType = pFluidType
 End Property
 Public Property Let FluidType(Value As String)
     pFluidType = Value
+End Property
+
+Public Property Get isUtility() As String
+    isUtility = pIsUtility
+End Property
+Public Property Let isUtility(Value As String)
+    pIsUtility = Value
 End Property
 

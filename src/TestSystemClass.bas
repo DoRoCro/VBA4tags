@@ -52,7 +52,7 @@ TestFail:
 End Sub
 
 '@TestMethod
-Public Sub TestSystemHasDescriptionAndFluidType()
+Public Sub TestSystemHasDescriptionAndUtilityTest()
     On Error GoTo TestFail
     
     'Arrange:
@@ -60,11 +60,17 @@ Public Sub TestSystemHasDescriptionAndFluidType()
     Set tstSystem = New clsSystem
 
     'Act:
-    tstSystem.Description = "Flash Gas Compression"
-    tstSystem.FluidType = "Hydrocarbons"
+    With tstSystem
+        tstSystem.Description = "Flash Gas Compression"
+        'tstSystem.FluidType = "Hydrocarbons"
+        tstSystem.isUtility = False
+        tstSystem.SystemNumber = "24"
+    End With
     'Assert:
     Assert.isTrue (tstSystem.Description = "Flash Gas Compression")
-    Assert.isTrue (tstSystem.FluidType = "Hydrocarbons")
+    'Assert.isTrue (tstSystem.FluidType = "Hydrocarbons")
+    Assert.isTrue (tstSystem.isUtility = False)
+    Assert.isTrue (tstSystem.SystemNumber = "24")
 TestExit:
     Exit Sub
 TestFail:
@@ -102,11 +108,13 @@ Public Sub TestLoadSystemsFromTable()
     Set tbl = ThisWorkbook.Worksheets("TestSystems").ListObjects("TestSystemsList")
     
     'Act:
-    Systems.Load tbl
-    Debug.Print Systems(1).SystemID
+    Systems.LoadTable tbl
+    Debug.Print Systems.Item(1).SystemID
     'Assert:
-    Assert.isTrue (Systems(1).SystemID = 50)
-
+    Assert.isTrue (Systems.Item(1).SystemID = "E-SYSTEM-00")
+    Assert.isTrue (Systems.Item(100).SystemID = "E-SYSTEM-99")
+    Assert.isTrue (Systems.Item(101).SystemID = "R-SYSTEM-00")
+    Assert.isTrue (Systems.Item(200).SystemID = "R-SYSTEM-99")
 TestExit:
     Exit Sub
 TestFail:
