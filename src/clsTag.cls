@@ -12,20 +12,84 @@ Option Explicit
 'Class clsTag
 'Attributes
 
-Private ptagID As String
-Private ptagDescription As String
+Private pID As String
+Private pDescription As String
+Private pFailureCode As String
+Private pStatus As String
+Private pUMCLplus As String
+Private pISOcode As String
+Private pisSIL As Boolean
+Private pisSIS As Boolean
+Private pDiscipline As String
+Private pSystemID As String
 
-Public Property Get TagID() As String
-    TagID = ptagID
+Public Property Get ID() As String
+    ID = pID
 End Property
-Public Property Let TagID(Value As String)
-    ptagID = Value
+Public Property Let ID(Value As String)
+    pID = Value
 End Property
 
-Public Property Get TagDescription() As String
-    TagDescription = ptagDescription
+Public Property Get Description() As String
+    Description = pDescription
 End Property
-Public Property Let TagDescription(Value As String)
-    ptagDescription = Value
+Public Property Let Description(Value As String)
+    pDescription = Value
+End Property
+
+Public Property Get FailureCode() As String
+    FailureCode = pFailureCode
+End Property
+Public Property Let FailureCode(Value As String)
+    pFailureCode = Value
+End Property
+
+Public Property Get Status() As String
+    Status = pStatus
+End Property
+Public Property Let Status(Value As String)
+    pStatus = Value
+End Property
+
+Public Property Get UMCLplus() As String
+    UMCLplus = pUMCLplus
+End Property
+Public Property Let UMCLplus(Value As String)
+    pUMCLplus = Value
+End Property
+
+Public Property Get ISOcode() As String
+    ISOcode = pISOcode
+End Property
+Public Property Let ISOcode(Value As String)
+    pISOcode = Value
+End Property
+
+Public Property Get Discipline() As String
+    Discipline = pDiscipline
+End Property
+Public Property Let Discipline(Value As String)
+    pDiscipline = Value
+End Property
+
+Public Property Get SystemID() As String
+    SystemID = pSystemID
+End Property
+Public Property Let SystemID(Value As String)
+    pSystemID = Value
+End Property
+
+Public Property Get isSIL() As String
+    isSIL = pisSIL
+End Property
+Public Property Let isSIL(Value As String)
+    pisSIL = Value
+End Property
+
+Public Property Get isSIS() As String
+    isSIS = pisSIS
+End Property
+Public Property Let isSIS(Value As String)
+    pisSIS = Value
 End Property
 

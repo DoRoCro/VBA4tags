@@ -39,13 +39,13 @@ Public Sub TestGetLetTagID()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim tag As clsTag
+    Dim Tag As clsTag
     Const strTag As String = "TEST-TAG"
-    Set tag = New clsTag
+    Set Tag = New clsTag
     'Act:
-    tag.TagID = strTag
+    Tag.ID = strTag
     'Assert:
-    Assert.isTrue (strTag = tag.TagID)
+    Assert.isTrue (strTag = Tag.ID)
 
 TestExit:
     Exit Sub
@@ -58,13 +58,13 @@ Public Sub TestGetLetTagDescription()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim tag As clsTag
+    Dim Tag As clsTag
     Const strTagDesc As String = "TEST-TAG-DESC"
-    Set tag = New clsTag
+    Set Tag = New clsTag
     'Act:
-    tag.TagDescription = strTagDesc
+    Tag.Description = strTagDesc
     'Assert:
-    Assert.isTrue ("TEST-TAG-DESC" = tag.TagDescription)
+    Assert.isTrue ("TEST-TAG-DESC" = Tag.Description)
 
 TestExit:
     Exit Sub
@@ -78,17 +78,17 @@ Public Sub TestGetTagIDFromCell()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim tag As clsTag
+    Dim Tag As clsTag
     Dim wb As Workbook
     Dim ws As Worksheet
     'Act:
     Set wb = ThisWorkbook
     Set ws = wb.Worksheets("TestingData")
-    Set tag = New clsTag
-    tag.TagID = ws.Cells(2, 1).Value
-    Debug.Print tag.TagID
+    Set Tag = New clsTag
+    Tag.ID = ws.Cells(2, 1).Value
+    Debug.Print Tag.ID
     'Assert:
-    Assert.isTrue (tag.TagID = "AB12345A")
+    Assert.isTrue (Tag.ID = "AB12345A")
 
 TestExit:
     Exit Sub
@@ -100,17 +100,17 @@ Public Sub TestGetTagDescFromCell()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim tag As clsTag
+    Dim Tag As clsTag
     Dim wb As Workbook
     Dim ws As Worksheet
     'Act:
     Set wb = ThisWorkbook
     Set ws = wb.Worksheets("TestingData")
-    Set tag = New clsTag
-    tag.TagID = ws.Cells(2, 2).Value
-    Debug.Print tag.TagID
+    Set Tag = New clsTag
+    Tag.ID = ws.Cells(2, 2).Value
+    Debug.Print Tag.ID
     'Assert:
-    Assert.isTrue (tag.TagID = "A TAG FOR TESTING")
+    Assert.isTrue (Tag.ID = "A TAG FOR TESTING")
 
 TestExit:
     Exit Sub
@@ -122,8 +122,8 @@ Public Sub TestGetTagFromTable()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim tag As clsTag
-    Dim tags As Collection
+    Dim Tag As clsTag
+    Dim Tags As Collection
     Dim wb As Workbook
     Dim ws As Worksheet
     Dim tbl As ListObject
@@ -133,16 +133,16 @@ Public Sub TestGetTagFromTable()
     'Act:
     Set wb = ThisWorkbook
     Set ws = wb.Worksheets("TestingData")
-    Set tag = New clsTag
-    Set tags = New Collection
+    Set Tag = New clsTag
+    Set Tags = New Collection
     Set tbl = ws.ListObjects("TagMinimal")
     Debug.Print tbl.Name
     
     'Loop Through Every Row in Table
     For x = 1 To tbl.Range.Rows.Count
-        tag.TagID = tbl.Range.Rows(x).Columns(1)
-        tags.Add tag
-        Debug.Print tag.TagID
+        Tag.ID = tbl.Range.Rows(x).Columns(1)
+        Tags.Add Tag
+        Debug.Print Tag.ID
     Next x
 
     'Assert:
@@ -159,8 +159,8 @@ Public Sub TestReadTableCreateTags()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim tag As clsTag
-    Dim tags As Collection
+    Dim Tag As clsTag
+    Dim Tags As Collection
     Dim wb As Workbook
     Dim ws As Worksheet
     Dim tbl As ListObject
@@ -170,23 +170,23 @@ Public Sub TestReadTableCreateTags()
     'Act:
     Set wb = ThisWorkbook
     Set ws = wb.Worksheets("TestingData")
-    Set tag = New clsTag
-    Set tags = New Collection
+    Set Tag = New clsTag
+    Set Tags = New Collection
     Set tbl = ws.ListObjects("TagMinimal")
     Debug.Print tbl.Name
     'Create Array List from Table
     tagArray = tbl.DataBodyRange
     'Loop through each item in Third Column of Table (displayed in Immediate Window [ctrl + g])
     For x = LBound(tagArray) To UBound(tagArray)
-        tag.TagID = tagArray(x, 1)
-        tag.TagDescription = tagArray(x, 2)
-        With tag
-            Debug.Print x, .TagID, .TagDescription
+        Tag.ID = tagArray(x, 1)
+        Tag.Description = tagArray(x, 2)
+        With Tag
+            Debug.Print x, .ID, .Description
         End With
     Next x
     'Assert:
     Debug.Print x, UBound(tagArray), LBound(tagArray)
-    Assert.isTrue (tag.TagID = "E-K-2421")
+    Assert.isTrue (Tag.ID = "E-K-2421")
     Assert.isTrue (x = 3)  'NB - runs over end of table...
     Assert.isTrue (UBound(tagArray) - LBound(tagArray) + 1 = 2) 'Appears to default to 1 indexing
 
@@ -237,5 +237,33 @@ End Sub
 'TestFail:
 '    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
 'End Sub
+
+'@TestMethod
+Public Sub TestLoadTagsFromTable()
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Dim Tags As clsTags
+    Set Tags = New clsTags
+    Dim tbl As ListObject
+    Set tbl = ThisWorkbook.Worksheets("TestTags").ListObjects("TestTagsTable")
+    
+    'Act:
+    Tags.LoadTable tbl
+    Debug.Print Tags.Item(1).ID
+    'Assert:
+    Assert.isTrue (Tags.Item(1).ID = "E-VG-29-069")
+    Assert.isTrue (Tags.Item(2).FailureCode = "FA_PEVB")
+    Assert.isTrue Tags.Item(5).isSIS
+    Assert.isFalse Tags.Item(5).isSIL
+    Assert.isTrue Tags.Item(6).isSIL
+    
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+End Sub
+
+
 
 
