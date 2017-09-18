@@ -60,13 +60,13 @@ Function rowCell(row As ListRow, col As String) As Range
     Set rowCell = Intersect(row.Range, row.Parent.ListColumns(col).Range)
 End Function
 
-Function getRow(Table As ListObject, ColumnName As String, Key As String) As ListRow
+Function getRow(table As ListObject, ColumnName As String, Key As String) As ListRow
     On Error Resume Next
     Dim row As ListRow
     'Set GetRow = Table.ListColumns(ColumnName) _
     '    .Rows(WorksheetFunction.Match(Key, Table.ListColumns(ColumnName).Range, 0))
     
-    For Each row In Table.ListRows
+    For Each row In table.ListRows
         If rowCell(row, ColumnName).Value = Key Then
             Set getRow = row
             Exit Function

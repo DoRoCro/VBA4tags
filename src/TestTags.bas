@@ -45,7 +45,7 @@ Public Sub TestGetLetTagID()
     'Act:
     tag.TagID = strTag
     'Assert:
-    Assert.Istrue (strTag = tag.TagID)
+    Assert.isTrue (strTag = tag.TagID)
 
 TestExit:
     Exit Sub
@@ -64,7 +64,7 @@ Public Sub TestGetLetTagDescription()
     'Act:
     tag.TagDescription = strTagDesc
     'Assert:
-    Assert.Istrue ("TEST-TAG-DESC" = tag.TagDescription)
+    Assert.isTrue ("TEST-TAG-DESC" = tag.TagDescription)
 
 TestExit:
     Exit Sub
@@ -88,7 +88,7 @@ Public Sub TestGetTagIDFromCell()
     tag.TagID = ws.Cells(2, 1).Value
     Debug.Print tag.TagID
     'Assert:
-    Assert.Istrue (tag.TagID = "AB12345A")
+    Assert.isTrue (tag.TagID = "AB12345A")
 
 TestExit:
     Exit Sub
@@ -110,7 +110,7 @@ Public Sub TestGetTagDescFromCell()
     tag.TagID = ws.Cells(2, 2).Value
     Debug.Print tag.TagID
     'Assert:
-    Assert.Istrue (tag.TagID = "A TAG FOR TESTING")
+    Assert.isTrue (tag.TagID = "A TAG FOR TESTING")
 
 TestExit:
     Exit Sub
@@ -146,7 +146,7 @@ Public Sub TestGetTagFromTable()
     Next x
 
     'Assert:
-    Assert.Istrue (tbl.Name = "TagMinimal")
+    Assert.isTrue (tbl.Name = "TagMinimal")
 
 TestExit:
     Exit Sub
@@ -186,9 +186,9 @@ Public Sub TestReadTableCreateTags()
     Next x
     'Assert:
     Debug.Print x, UBound(tagArray), LBound(tagArray)
-    Assert.Istrue (tag.TagID = "E-K-2421")
-    Assert.Istrue (x = 3)  'NB - runs over end of table...
-    Assert.Istrue (UBound(tagArray) - LBound(tagArray) + 1 = 2) 'Appears to default to 1 indexing
+    Assert.isTrue (tag.TagID = "E-K-2421")
+    Assert.isTrue (x = 3)  'NB - runs over end of table...
+    Assert.isTrue (UBound(tagArray) - LBound(tagArray) + 1 = 2) 'Appears to default to 1 indexing
 
 TestExit:
     Exit Sub
