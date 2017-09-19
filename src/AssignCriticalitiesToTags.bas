@@ -1,6 +1,13 @@
 Attribute VB_Name = "AssignCriticalitiesToTags"
 '@Folder("VBAProject")
 
+Option Explicit
+Private tags As clsTags
+Const wbCriticality As String = "WND Criticality Template.xlsx"
+Private Disciplines As Collection
+
+Sub LoadTags()
+
 'Read in tags
 ' create workbook for each discipline
 
@@ -16,3 +23,7 @@ Attribute VB_Name = "AssignCriticalitiesToTags"
     '  / justification
 
 'endforeach
+
+End Sub
+
+

@@ -12,15 +12,15 @@ Attribute VB_Exposed = False
 Private pContent As New Collection
 
 Sub LoadTable(table As ListObject)
-    Dim Tag As clsTag
+    Dim tag As clsTag
     Dim row As ListRow  'for use in for Each
 
 
     For Each row In table.ListRows
         'read an entry
-        Set Tag = New clsTag
+        Set tag = New clsTag
         'Debug.Print row.index, row.Range(1, 1)
-        With Tag
+        With tag
             .ID = row.Range(1, 1)
             .Description = row.Range(1, 2)
             .FailureCode = row.Range(1, 3) 'as string
@@ -41,7 +41,7 @@ Sub LoadTable(table As ListObject)
             .SystemID = row.Range(1, 11)
         End With
         'add it to collection
-        Me.Add Tag
+        Me.Add tag
         
     Next
 End Sub
@@ -54,3 +54,6 @@ Function Item(index As LongPtr) As clsTag
     Set Item = pContent.Item(index)
 End Function
 
+Function Count() As LongPtr
+    Set Count = pContent.Count
+End Function
