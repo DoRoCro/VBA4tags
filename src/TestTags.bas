@@ -248,4 +248,27 @@ TestFail:
     Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
 End Sub
 
+'@TestMethod
+Public Sub TestWriteTagToWorksheet()
+    On Error GoTo TestFail
+    
+    Dim tag As New clsTag
+    Dim ws As Worksheet
+    'Arrange:
+    Set ws = ThisWorkbook.Worksheets("Output")
+    tag.ID = "TEST-TAG"
+    tag.RiskImpact(Environment) = "D"
+    tag.RiskLikelihood(Environment) = "5"
+    'Act:
+    tag.WriteToWorksheet ws.Range("B2")
+    
+    'Assert:
+    Assert.isTrue (ws.Range("B2").Value = "TEST-TAG")
+
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+End Sub
+
 

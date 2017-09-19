@@ -117,3 +117,23 @@ End Property
 Private Sub Class_Initialize()
   Set pRisks = New clsSEPB
 End Sub
+
+Public Sub WriteToWorksheet(StartCell As Range)
+    With Me
+        StartCell.Select
+        StartCell.Formula = .ID
+'        StartCell.
+'pFailureCode As String
+'pStatus As String
+'pUMCLplus As String
+'pISOcode As String
+'pisSIL As Boolean
+'pisSIS As Boolean
+'pDiscipline As String
+'pSystemID As String
+'pCriticality As String
+'pRisks As clsSEPB
+    
+    End With
+    
+End Sub
