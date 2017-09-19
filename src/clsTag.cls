@@ -120,20 +120,20 @@ End Sub
 
 Public Sub WriteToWorksheet(StartCell As Range)
     With Me
-        StartCell.Select
         StartCell.Formula = .ID
-'        StartCell.
-'pFailureCode As String
-'pStatus As String
-'pUMCLplus As String
-'pISOcode As String
-'pisSIL As Boolean
-'pisSIS As Boolean
-'pDiscipline As String
-'pSystemID As String
-'pCriticality As String
-'pRisks As clsSEPB
-    
+        StartCell.Offset(0, 1).Formula = .Description
+        StartCell.Offset(0, 2).Formula = .FailureCode
+        StartCell.Offset(0, 3).Formula = .Status
+        StartCell.Offset(0, 4).Formula = .UMCLplus
+        StartCell.Offset(0, 5).Formula = .ISOcode
+        StartCell.Offset(0, 6).Formula = .isSIL
+        StartCell.Offset(0, 7).Formula = .isSIS
+        StartCell.Offset(0, 8).Formula = .Discipline
+        StartCell.Offset(0, 9).Formula = .SystemID
+        StartCell.Offset(0, 10).Formula = .Criticality
+        StartCell.Offset(0, 11).Formula = .Risks(Safety)
+        StartCell.Offset(0, 12).Formula = .Risks(Environment)
+        StartCell.Offset(0, 13).Formula = .Risks(Production)
+        StartCell.Offset(0, 14).Formula = .Risks(Business)
     End With
-    
 End Sub
