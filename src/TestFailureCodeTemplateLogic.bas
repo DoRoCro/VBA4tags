@@ -98,8 +98,8 @@ Public Sub TestInitialStateGivesC()
     'Act:
 
     'Assert:
-    Assert.Istrue (ws.Range("K1") = "C")
-    Assert.Istrue (ws.Range("G6").Value = "NO") ' not SCE
+    Assert.isTrue (ws.Range("K1") = "C")
+    Assert.isTrue (ws.Range("G6").Value = "NO") ' not SCE
 
 TestExit:
     Exit Sub
@@ -116,8 +116,8 @@ Public Sub TestSafetyA1GivesCAndSCE()
     'Act:
     ws.Range("B16").Formula = "A"
     'Assert:
-    Assert.Istrue (ws.Range("K1") = "C")
-    Assert.Istrue (ws.Range("G6").Value = "YES")   ' is SCE
+    Assert.isTrue (ws.Range("K1") = "C")
+    Assert.isTrue (ws.Range("G6").Value = "YES")   ' is SCE
 TestExit:
     Exit Sub
 TestFail:
@@ -135,9 +135,9 @@ Public Sub TestSafetyA7GivesCAndSCE()
     ws.Range("C16").Formula = "7"
     
     'Assert:
-    Assert.Istrue (ws.Range("K1") = "C")        ' no rule explicitly sets high criticality from safety impact, but expect MAH override in practice
-    Assert.Istrue (ws.Range("G6").Value = "YES")   ' is SCE
-    Assert.Istrue (ws.Range("G8").Value = 10)   ' CMMS Location priority
+    Assert.isTrue (ws.Range("K1") = "C")        ' no rule explicitly sets high criticality from safety impact, but expect MAH override in practice
+    Assert.isTrue (ws.Range("G6").Value = "YES")   ' is SCE
+    Assert.isTrue (ws.Range("G8").Value = 10)   ' CMMS Location priority
     
 TestExit:
     Exit Sub

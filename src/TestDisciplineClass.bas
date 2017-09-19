@@ -61,9 +61,9 @@ Public Sub TestDisciplineLoadsFromTable()
     Next x
     Debug.Print Disciplines(2).ID
     'Assert:
-    Assert.Istrue (tbl.Name = "DisciplinesList")
-    Assert.Istrue (Disciplines(2).ID = "ELEC")
-    Assert.Istrue (Disciplines(6).ID = "MECH")
+    Assert.isTrue (tbl.Name = "DisciplinesList")
+    Assert.isTrue (Disciplines(2).ID = "ELEC")
+    Assert.isTrue (Disciplines(6).ID = "MECH")
 
 TestExit:
     Exit Sub
@@ -95,9 +95,9 @@ Public Sub TestDisciplinesClassLoads()
 
     Debug.Print Disciplines.Item(2).ID
     'Assert:
-    Assert.Istrue (tbl.Name = "DisciplinesList")
-    Assert.Istrue (Disciplines.Item(2).ID = "ELEC")
-    Assert.Istrue (Disciplines.Item(6).ID = "MECH")
+    Assert.isTrue (tbl.Name = "DisciplinesList")
+    Assert.isTrue (Disciplines.Item(2).ID = "ELEC")
+    Assert.isTrue (Disciplines.Item(6).ID = "MECH")
 
 TestExit:
     Exit Sub

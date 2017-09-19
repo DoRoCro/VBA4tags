@@ -52,9 +52,9 @@ Public Sub TestCalculateCriticalityGetsRightWorksheet()
     End With
     
     'Act:
-    SetTagCriticality tag
+    SetTagCriticalityByFailureCode tag
     'Assert
-    Assert.Istrue (Excel.ActiveSheet.Name = "FA_CFBC")
+    Assert.isTrue (Excel.ActiveSheet.Name = "FA_CFBC")
     'Assert.inconclusive
     'Assert.Equal "A", tag.Criticality
 

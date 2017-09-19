@@ -43,8 +43,18 @@ Public Sub TestSEPBInput()
     'Act:
     SEPB.Impact(Safety) = "A"
     SEPB.Likelihood(Safety) = 1
+    SEPB.Impact(Business) = "E"
+    SEPB.Likelihood(Business) = "3"
     'Assert:
     Assert.AreEqual SEPB.Risk(Safety), "A1"
+    Assert.AreEqual SEPB.Impact(Safety), "A"
+    Assert.AreEqual SEPB.Likelihood(Safety), "1", "number as string"
+    Assert.isTrue (SEPB.Likelihood(Safety) = 1), "number as integer"
+    Assert.AreEqual SEPB.Risk(Business), "E3"
+    Assert.AreEqual SEPB.Impact(Business), "E"
+    Assert.AreEqual SEPB.Likelihood(Business), "3", "number as string"
+    Assert.isTrue (SEPB.Likelihood(Business) = 3), "number as integer"
+    
     'Assert.Inconclusive
 
 TestExit:
