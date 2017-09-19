@@ -37,12 +37,15 @@ Public Sub TestSEPBInput()
     On Error GoTo TestFail
     
     'Arrange:
-
-    'Act:
-
-    'Assert:
+    Dim SEPB As New clsSEPB
+    Set SEPB = New clsSEPB
     
-    Assert.Inconclusive
+    'Act:
+    SEPB.Impact(Safety) = "A"
+    SEPB.Likelihood(Safety) = 1
+    'Assert:
+    Assert.AreEqual SEPB.Risk(Safety), "A1"
+    'Assert.Inconclusive
 
 TestExit:
     Exit Sub
