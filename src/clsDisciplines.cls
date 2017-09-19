@@ -34,3 +34,7 @@ Function Item(index As LongPtr) As clsDiscipline
     Set Item = pContent.Item(index)
 End Function
 
+Function Count() As LongPtr
+    Count = pContent.Count
+End Function
+

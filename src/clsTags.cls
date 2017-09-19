@@ -45,7 +45,39 @@ Sub LoadTable(table As ListObject)
         
     Next
 End Sub
+Sub LoadArray(table As Variant)
+    Dim tag As clsTag
+    Dim row As LongPtr  'for use in for Each
 
+    For row = LBound(table) To UBound(table)
+        'read an entry
+        Set tag = New clsTag
+        'Debug.Print row.index, row.Range(1, 1)
+        With tag
+            .ID = table(row, 1)
+            .Description = table(row, 2)
+            .FailureCode = table(row, 3) 'as string
+            .Status = table(row, 4)
+            .UMCLplus = table(row, 5)
+            .ISOcode = table(row, 6)
+            If table(row, 7) = "Y" Or table(row, 8) = "Y" Then
+                .isSIL = True
+            Else
+                .isSIL = False
+            End If
+            If table(row, 9) = "X" Then
+                .isSIS = True
+            Else
+                .isSIS = False
+            End If
+            .Discipline = table(row, 10)
+            .SystemID = table(row, 11)
+        End With
+        'add it to collection
+        Me.Add tag
+        
+    Next
+End Sub
 Sub Add(newTag As clsTag)
     pContent.Add newTag
 End Sub
@@ -55,5 +87,5 @@ Function Item(index As LongPtr) As clsTag
 End Function
 
 Function Count() As LongPtr
-    Set Count = pContent.Count
+    Count = pContent.Count
 End Function

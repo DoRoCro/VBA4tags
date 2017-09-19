@@ -46,13 +46,13 @@ Public Sub TestReadLotsOfTags()
 
     'Act:
     Set wb = Application.Workbooks("WND Criticality Template.xlsx")
-    Set ws = wb.Worksheets("AssetRegisterTbl")
+    Set ws = wb.Worksheets("AssetRegisterDefaultCodeApplied")
     Set tag = New clsTag
-    Set tags = New Collection
+    Set tags = New clsTags
     Set tbl = ws.ListObjects("AssetRegisterTbl")
     Debug.Print tbl.Name
     'Create Array List from Table
-'    tagArray = tbl.DataBodyRange
+    tagArray = tbl.DataBodyRange
 '    'Loop through each item in Third Column of Table (displayed in Immediate Window [ctrl + g])
 '    For x = LBound(tagArray) To UBound(tagArray)
 '        tag.TagID = tagArray(x, 1)
@@ -61,15 +61,17 @@ Public Sub TestReadLotsOfTags()
 '            'Debug.Print x, .TagID, .TagDescription
 '        End With
 '    Next x
-    tags.LoadTable tbl
+    'tags.LoadTable tbl 'out of memory error with 100k rows
+    tags.LoadArray tagArray
     
     'Assert:
     'Debug.Print x, UBound(tagArray), LBound(tagArray)
     'Debug.Print tag.TagID, tag.TagDescription
     'Assert.IsTrue (tag.TagID = "BP")
+    Debug.Print UBound(tagArray)
     Debug.Print tags.Count
     Debug.Print "Tag 1 = ", tags.Item(1).ID
-    Assert.IsTrue (tags.Count = 104574)  'NB - runs over end of table...
+    Assert.IsTrue (tags.Count = 104572)  'NB - runs over end of table...
     'Assert.IsTrue (UBound(tagArray) - LBound(tagArray) + 1 = 104573) 'Appears to default to 1 indexing
 
 TestExit:
