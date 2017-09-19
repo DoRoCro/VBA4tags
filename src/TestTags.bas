@@ -225,4 +225,27 @@ End Sub
 
 
 
+'@TestMethod
+Public Sub TestTagRisks()
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Dim tag As clsTag
+    Const strTagDesc As String = "TEST-TAG-DESC"
+    Set tag = New clsTag
+    'Act:
+    tag.Description = strTagDesc
+    tag.RiskImpact(Environment) = "D"
+    tag.RiskLikelihood(Environment) = "5"
+    'Assert:
+    Assert.isTrue ("TEST-TAG-DESC" = tag.Description)
+    Assert.AreEqual "D5", tag.Risks(Environment)
+    
+
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+End Sub
+
 

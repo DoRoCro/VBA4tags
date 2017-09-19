@@ -23,6 +23,7 @@ Private pisSIS As Boolean
 Private pDiscipline As String
 Private pSystemID As String
 Private pCriticality As String
+Private pRisks As clsSEPB
 
 
 Public Property Get ID() As String
@@ -102,3 +103,17 @@ End Property
 Public Property Let Criticality(Value As String)
     pCriticality = Value
 End Property
+
+Public Property Get Risks(category As SEPB) As String
+    Risks = pRisks.Risk(category)
+End Property
+Public Property Let RiskImpact(category As SEPB, Value As String)
+    pRisks.Impact(category) = Value
+End Property
+Public Property Let RiskLikelihood(category As SEPB, Value As String)
+    pRisks.Likelihood(category) = Value
+End Property
+
+Private Sub Class_Initialize()
+  Set pRisks = New clsSEPB
+End Sub

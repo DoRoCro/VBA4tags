@@ -17,21 +17,21 @@ Public Enum SEPB
     Business
 End Enum
     
-Public Property Get Impact(Category As SEPB) As String
-    Impact = pImpacts(Category)
+Public Property Get Impact(category As SEPB) As String
+    Impact = pImpacts(category)
 End Property
-Public Property Let Impact(Category As SEPB, Value As String)
-    pImpacts(Category) = Value
+Public Property Let Impact(category As SEPB, Value As String)
+    pImpacts(category) = Value
 End Property
     
-Public Property Get Likelihood(Category As SEPB) As String
-    Likelihood = pLikelihoods(Category)
+Public Property Get Likelihood(category As SEPB) As String
+    Likelihood = pLikelihoods(category)
 End Property
-Public Property Let Likelihood(Category As SEPB, Value As String)
-    pLikelihoods(Category) = Value
+Public Property Let Likelihood(category As SEPB, Value As String)
+    pLikelihoods(category) = Value
 End Property
 
-Public Property Get Risk(Category As SEPB) As String
-    Risk = pImpacts(Category) & pLikelihoods(Category)
+Public Property Get Risk(category As SEPB) As String
+    Risk = pImpacts(category) & pLikelihoods(category)
 End Property
 
