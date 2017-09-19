@@ -22,6 +22,8 @@ Private pisSIL As Boolean
 Private pisSIS As Boolean
 Private pDiscipline As String
 Private pSystemID As String
+Private pCriticality As String
+
 
 Public Property Get ID() As String
     ID = pID
@@ -93,3 +95,10 @@ Public Property Let isSIS(Value As String)
     pisSIS = Value
 End Property
 
+
+Public Property Get Criticality() As String
+    Criticality = pCriticality
+End Property
+Public Property Let Criticality(Value As String)
+    pCriticality = Value
+End Property

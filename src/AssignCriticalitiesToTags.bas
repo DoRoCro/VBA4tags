@@ -50,6 +50,7 @@ Sub LoadTags()
     tagsArray = tbl.DataBodyRange
     tags.LoadArray tagsArray
     Debug.Print "finished loading tags, count ="; tags.Count
+
 'Read in disciplines
     Set ws = wb.Worksheets(DisciplinesSheetName)
     Set tbl = ws.ListObjects(DisciplinesTableName)
@@ -64,7 +65,24 @@ Sub LoadTags()
     Systems.LoadTable tbl
     Debug.Print "finished loading systems, count ="; Systems.Count
 
+'Read in MAH
+'Read in Ex list - optional, if not added to tag.
+
+
 End Sub
 
-
+'Sub CalculateTagCriticality(tag As clsTag, Systems As clsSystems, Optional MAHBarriers As Collection, Optional Overrides As Collection)
+Sub SetTagCriticalityByFailureCode(tag As clsTag)
+    Dim wb As Workbook
+    Dim ws As Worksheet
+    Set wb = Workbooks(CriticalityWbName)
+    If tag.FailureCode <> "" Then
+        Set ws = wb.Worksheets(tag.FailureCode)
+        tag.Criticality = ws.Range("K1")
+    Else
+        ' some error message here
+    End If
+    ws.Activate
+    
+End Sub
 

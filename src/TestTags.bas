@@ -45,7 +45,7 @@ Public Sub TestGetLetTagID()
     'Act:
     tag.ID = strTag
     'Assert:
-    Assert.IsTrue (strTag = tag.ID)
+    Assert.Istrue (strTag = tag.ID)
 
 TestExit:
     Exit Sub
@@ -64,7 +64,7 @@ Public Sub TestGetLetTagDescription()
     'Act:
     tag.Description = strTagDesc
     'Assert:
-    Assert.IsTrue ("TEST-TAG-DESC" = tag.Description)
+    Assert.Istrue ("TEST-TAG-DESC" = tag.Description)
 
 TestExit:
     Exit Sub
@@ -88,7 +88,7 @@ Public Sub TestGetTagIDFromCell()
     tag.ID = ws.Cells(2, 1).Value
     Debug.Print tag.ID
     'Assert:
-    Assert.IsTrue (tag.ID = "AB12345A")
+    Assert.Istrue (tag.ID = "AB12345A")
 
 TestExit:
     Exit Sub
@@ -110,7 +110,7 @@ Public Sub TestGetTagDescFromCell()
     tag.ID = ws.Cells(2, 2).Value
     Debug.Print tag.ID
     'Assert:
-    Assert.IsTrue (tag.ID = "A TAG FOR TESTING")
+    Assert.Istrue (tag.ID = "A TAG FOR TESTING")
 
 TestExit:
     Exit Sub
@@ -146,7 +146,7 @@ Public Sub TestGetTagFromTable()
     Next x
 
     'Assert:
-    Assert.IsTrue (tbl.Name = "TagMinimal")
+    Assert.Istrue (tbl.Name = "TagMinimal")
 
 TestExit:
     Exit Sub
@@ -186,9 +186,9 @@ Public Sub TestReadTableCreateTags()
     Next x
     'Assert:
     Debug.Print x, UBound(tagArray), LBound(tagArray)
-    Assert.IsTrue (tag.ID = "E-K-2421")
-    Assert.IsTrue (x = 3)  'NB - runs over end of table...
-    Assert.IsTrue (UBound(tagArray) - LBound(tagArray) + 1 = 2) 'Appears to default to 1 indexing
+    Assert.Istrue (tag.ID = "E-K-2421")
+    Assert.Istrue (x = 3)  'NB - runs over end of table...
+    Assert.Istrue (UBound(tagArray) - LBound(tagArray) + 1 = 2) 'Appears to default to 1 indexing
 
 TestExit:
     Exit Sub
@@ -211,11 +211,11 @@ Public Sub TestLoadTagsFromTable()
     tags.LoadTable tbl
     Debug.Print tags.Item(1).ID
     'Assert:
-    Assert.IsTrue (tags.Item(1).ID = "E-VG-29-069")
-    Assert.IsTrue (tags.Item(2).FailureCode = "FA_PEVB")
-    Assert.IsTrue tags.Item(5).isSIS
+    Assert.Istrue (tags.Item(1).ID = "E-VG-29-069")
+    Assert.Istrue (tags.Item(2).FailureCode = "FA_PEVB")
+    Assert.Istrue tags.Item(5).isSIS
     Assert.isFalse tags.Item(5).isSIL
-    Assert.IsTrue tags.Item(6).isSIL
+    Assert.Istrue tags.Item(6).isSIL
     
 TestExit:
     Exit Sub
