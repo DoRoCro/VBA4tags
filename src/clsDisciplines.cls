@@ -13,18 +13,18 @@ Option Explicit
 Private pContent As New Collection
 
 Sub LoadTable(table As ListObject)
-    Dim discipline As clsDiscipline
+    Dim Discipline As clsDiscipline
     Dim row As ListRow  'for use in for Each
 
     For Each row In table.ListRows
         'read an entry
-        Set discipline = New clsDiscipline
+        Set Discipline = New clsDiscipline
         'Debug.Print row.index, row.Range(1, 1)
-        With discipline
+        With Discipline
             .ID = row.Range(1, 1)
         End With
         'add it to collection
-        Me.Add discipline
+        Me.Add Discipline
     Next
 End Sub
 
@@ -40,10 +40,14 @@ Function Count() As LongPtr
     Count = pContent.Count
 End Function
 
+Public Function All() As Collection
+    Set All = pContent
+End Function
+
 Public Sub createOutputSheetsByDiscipline() ' TODO add check and delete/rename if existing discipline worksheet
-    Dim discipline As clsDiscipline
-    For Each discipline In pContent
-      Set discipline.OutputSheet = discipline.CreateDisciplineOutputSheet(ThisWorkbook.Sheets)
+    Dim Discipline As clsDiscipline
+    For Each Discipline In pContent
+      Set Discipline.OutputSheet = Discipline.CreateDisciplineOutputSheet(ThisWorkbook.Sheets)
     Next
 End Sub
 

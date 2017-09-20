@@ -38,7 +38,7 @@ Public Sub TestDisciplineLoadsFromTable()
     
 
     Dim disciplines As Collection
-    Dim discipline As clsDiscipline
+    Dim Discipline As clsDiscipline
     Dim wb As Workbook
     Dim ws As Worksheet
     Dim tbl As ListObject
@@ -54,10 +54,10 @@ Public Sub TestDisciplineLoadsFromTable()
     
     'Loop Through Every Row in Table  NB row 1 is headers
     For x = 2 To tbl.Range.Rows.Count
-        Set discipline = New clsDiscipline
-        discipline.ID = tbl.Range.Rows(x).Columns(1)
-        disciplines.Add discipline
-        Debug.Print discipline.ID
+        Set Discipline = New clsDiscipline
+        Discipline.ID = tbl.Range.Rows(x).Columns(1)
+        disciplines.Add Discipline
+        Debug.Print Discipline.ID
     Next x
     Debug.Print disciplines(2).ID
     'Assert:
@@ -76,7 +76,7 @@ Public Sub TestDisciplinesClassLoads()
     On Error GoTo TestFail
     
     Dim disciplines As clsDisciplines
-    Dim discipline As clsDiscipline
+    Dim Discipline As clsDiscipline
     Dim wb As Workbook
     Dim ws As Worksheet
     Dim tbl As ListObject
@@ -110,14 +110,14 @@ Public Sub TestCreateOutputSheet()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim discipline As clsDiscipline
-    Set discipline = New clsDiscipline
+    Dim Discipline As clsDiscipline
+    Set Discipline = New clsDiscipline
     Dim ws As Worksheet
-    discipline.ID = "TEST"
+    Discipline.ID = "TEST"
     'Act:
-    Set ws = discipline.CreateDisciplineOutputSheet(ThisWorkbook.Sheets)
+    Set ws = Discipline.CreateDisciplineOutputSheet(ThisWorkbook.Sheets)
     'Assert:
-    Assert.istrue (ws.Name = discipline.ID)
+    Assert.istrue (ws.Name = Discipline.ID)
 
 TestExit:
     Exit Sub

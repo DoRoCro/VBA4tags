@@ -24,6 +24,7 @@ Private pDiscipline As String
 Private pSystemID As String
 Private pCriticality As String
 Private pRisks As clsSEPB
+Private pJustification As String
 
 
 Public Property Get ID() As String
@@ -68,10 +69,10 @@ Public Property Let ISOcode(Value As String)
     pISOcode = Value
 End Property
 
-Public Property Get discipline() As String
-    discipline = pDiscipline
+Public Property Get Discipline() As String
+    Discipline = pDiscipline
 End Property
-Public Property Let discipline(Value As String)
+Public Property Let Discipline(Value As String)
     pDiscipline = Value
 End Property
 
@@ -114,6 +115,15 @@ Public Property Let RiskLikelihood(category As SEPB, Value As String)
     pRisks.Likelihood(category) = Value
 End Property
 
+Public Property Get Justification() As String
+    Justification = pJustification
+End Property
+Public Property Let Justification(Value As String)
+    pJustification = Value
+End Property
+
+
+
 Private Sub class_initialize()
   Set pRisks = New clsSEPB
 End Sub
@@ -128,13 +138,14 @@ Public Sub WriteToWorksheet(StartCell As Range)
         StartCell.Offset(0, 5).Formula = .ISOcode
         StartCell.Offset(0, 6).Formula = .isSIL
         StartCell.Offset(0, 7).Formula = .isSIS
-        StartCell.Offset(0, 8).Formula = .discipline
+        StartCell.Offset(0, 8).Formula = .Discipline
         StartCell.Offset(0, 9).Formula = .SystemID
         StartCell.Offset(0, 10).Formula = .Criticality
         StartCell.Offset(0, 11).Formula = .Risks(Safety)
         StartCell.Offset(0, 12).Formula = .Risks(Environment)
         StartCell.Offset(0, 13).Formula = .Risks(Production)
         StartCell.Offset(0, 14).Formula = .Risks(Business)
+        StartCell.Offset(0, 15).Formula = .Justification
     End With
 End Sub
 Public Sub FillTagHeaders(StartCell As Range)
@@ -153,7 +164,7 @@ Public Sub FillTagHeaders(StartCell As Range)
     StartCell.Offset(0, 12).Formula = "Risks(Environment)"
     StartCell.Offset(0, 13).Formula = "Risks(Production)"
     StartCell.Offset(0, 14).Formula = "Risks(Business)"
-    'move cell down one row for next input
-    StartCell = StartCell.Offset(0, 1)
+    StartCell.Offset(0, 15).Formula = "Justification"
+    StartCell.Offset(0, 14).Formula = "Risks(Business)"
 End Sub
 

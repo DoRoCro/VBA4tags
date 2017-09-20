@@ -39,7 +39,7 @@ Sub LoadTable(table As ListObject)
             Else
                 .isSIS = False
             End If
-            .discipline = row.Range(1, 10)
+            .Discipline = row.Range(1, 10)
             .SystemID = row.Range(1, 11)
         End With
         'add it to collection
@@ -72,7 +72,7 @@ Sub LoadArray(table As Variant)
             Else
                 .isSIS = False
             End If
-            .discipline = table(row, 10)
+            .Discipline = table(row, 10)
             .SystemID = table(row, 11)
         End With
         'add it to collection
@@ -100,7 +100,7 @@ Sub OutputTagListings(StartCell As Range)
     counter = 1
     Application.ScreenUpdating = False
     Application.Calculation = xlCalculationManual
-        
+    Me.Item(1).FillTagHeaders StartCell      'dummy tag use to use class method
     For Each tag In pContent
         tag.WriteToWorksheet StartCell.Offset(counter, 0)
 '        With tag
@@ -118,5 +118,25 @@ End Sub
 
 Public Function All() As Collection
     Set All = pContent
+End Function
+
+Public Function byDiscipline(Discipline As clsDiscipline) As clsTags
+    Dim tag As clsTag
+    Dim tagsByDiscipline As clsTags
+    Set tagsByDiscipline = New clsTags
+    For Each tag In Me.All
+        If tag.Discipline = Discipline.ID Then tagsByDiscipline.Add tag
+    Next tag
+    Set byDiscipline = tagsByDiscipline
+End Function
+
+Public Function RemoveStatus(StatusCode As String) As clsTags
+    Dim tag As clsTag
+    Dim tagsWithoutStatus As clsTags
+    Set tagsWithoutStatus = New clsTags
+    For Each tag In Me.All
+        If tag.Status <> StatusCode Then tagsWithoutStatus.Add tag
+    Next tag
+    Set RemoveStatus = tagsWithoutStatus
 End Function
 

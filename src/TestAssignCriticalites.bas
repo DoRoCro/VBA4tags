@@ -47,7 +47,7 @@ Public Sub TestCalculateCriticalityGetsRightWorksheet()
         .Description = "Test Tag"
         .ID = "XYZ-1234"
         .FailureCode = "FA_CFBC"
-        .discipline = "INST"
+        .Discipline = "INST"
         .SystemID = "78"
     End With
     

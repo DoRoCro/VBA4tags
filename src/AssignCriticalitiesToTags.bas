@@ -38,8 +38,6 @@ Sub AssignCriticalities()
             Case Else
                 Call SetTagCriticalityByFailureCode(tag)
         End Select
-        
-        
     Next
     Debug.Print "Default criticalities assigned"
 
@@ -51,7 +49,38 @@ Sub AssignCriticalities()
     
     'copy results of template to row for tag into discipline workbook with comments
     '  / justification
-
+    tags.Item(1).FillTagHeaders ThisWorkbook.Worksheets("Output").Range("B50")
+    Set tags = tags.RemoveStatus("DEL")
+    Set tags = tags.RemoveStatus("SOFT")
+    Set tags = tags.RemoveStatus(vbNullString)
+    Set tags = tags.RemoveStatus("DRAFT")
+    
+'    Dim pipingTags As clsTags
+'    Set pipingTags = New clsTags
+'    Set pipingTags = tags.byDiscipline(disciplines.Item(8))
+'
+'    pipingTags.OutputTagListings ThisWorkbook.Worksheets("Output").Range("B51")
+    
+    Dim disciplineTags As clsTags
+    Set disciplineTags = New clsTags
+    Dim discWs As Worksheet
+    'disciplines.createOutputSheetsByDiscipline
+    Dim Discipline As clsDiscipline
+    For Each Discipline In disciplines.All
+        Set disciplineTags = tags.byDiscipline(Discipline)
+        Set discWs = Discipline.CreateDisciplineOutputSheet(ThisWorkbook.Sheets)
+'        Select Case Discipline.ID
+'            Case vbNullString
+'                discWs = Worksheets("BLANKS")
+'            Case "N/A"
+'                discWs = Worksheets("N_A")
+'            Case Else
+'                discWs = Worksheets(Discipline.ID)
+'        End Select
+        disciplineTags.OutputTagListings discWs.Range("A1")
+    Next Discipline
+    
+    
 'endforeach
 End Sub
 
@@ -106,9 +135,21 @@ Sub SetTagCriticalityByFailureCode(tag As clsTag)
         Case Else
             Set ws = wb.Worksheets(tag.FailureCode)
             tag.Criticality = ws.Range("K1")
+            tag.RiskImpact(Safety) = ws.Range("B9")
+            tag.RiskImpact(Environment) = ws.Range("B10")
+            tag.RiskImpact(Production) = ws.Range("B11")
+            tag.RiskImpact(Business) = ws.Range("B12")
+            tag.RiskLikelihood(Safety) = ws.Range("C9")
+            tag.RiskLikelihood(Environment) = ws.Range("C10")
+            tag.RiskLikelihood(Production) = ws.Range("C11")
+            tag.RiskLikelihood(Business) = ws.Range("C12")
+            tag.Justification = "MAH Barrier: " & ws.Range("I17").Text & "; " & _
+                                "IPL/LOPA = " & ws.Range("J35").Text & _
+                                "; Regulatory override = " & ws.Range("I37").Text
     End Select
         'End If
     'ws.Activate
     
 End Sub
+
 
