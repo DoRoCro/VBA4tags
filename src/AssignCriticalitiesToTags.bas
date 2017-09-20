@@ -1,5 +1,5 @@
 Attribute VB_Name = "AssignCriticalitiesToTags"
-'@Folder("VBAProject")
+'@Folder("CriticalityAssignment")
 
 Option Explicit
 
@@ -16,13 +16,33 @@ Private disciplines As clsDisciplines
 Private Systems As clsSystems
 
 Sub AssignCriticalities()
-    Call LoadTags
+    Set tags = New clsTags
+    Set Systems = New clsSystems
+    Set disciplines = New clsDisciplines
+    Call LoadTables(tags, Systems, disciplines)
     Debug.Print "Tags count ="; tags.Count
     Debug.Print "Systems count ="; Systems.Count
     Debug.Print "Disciplines count ="; disciplines.Count
 
 'foreach tag
     'lookup failure code output
+    ' Set criticalities by failure code as first pass
+    Dim tag As clsTag
+    For Each tag In tags.All
+        'Debug.Print tag.ID
+        Select Case tag.Status
+            Case "DEL"
+                tag.Criticality = "D"
+            Case "SOFT"
+                tag.Criticality = "S"
+            Case Else
+                Call SetTagCriticalityByFailureCode(tag)
+        End Select
+        
+        
+    Next
+    Debug.Print "Default criticalities assigned"
+
     'set criticality using default MAH barrier, if defined
     'if isUtility then look at downgrade options / revising MAH barrier
     'if isSIL then set as LOPA/IPL in Non-fin business, which will give criticality A
@@ -36,12 +56,11 @@ Sub AssignCriticalities()
 End Sub
 
 
-Sub LoadTags()
+Sub LoadTables(tags As clsTags, Systems As clsSystems, Discplines As clsDisciplines)
     Dim wb As Workbook
     Dim ws As Worksheet
     Dim tbl As ListObject
     Dim tagsArray As Variant
-    Set tags = New clsTags
     Set wb = Workbooks(CriticalityWbName)
     Set ws = wb.Worksheets(tagsWorksheetName)
     Set tbl = ws.ListObjects(tagsTableName)
@@ -50,7 +69,8 @@ Sub LoadTags()
     tagsArray = tbl.DataBodyRange
     tags.LoadArray tagsArray
     Debug.Print "finished loading tags, count ="; tags.Count
-
+    Set tagsArray = Nothing
+    
 'Read in disciplines
     Set ws = wb.Worksheets(DisciplinesSheetName)
     Set tbl = ws.ListObjects(DisciplinesTableName)
@@ -76,12 +96,18 @@ Sub SetTagCriticalityByFailureCode(tag As clsTag)
     Dim wb As Workbook
     Dim ws As Worksheet
     Set wb = Workbooks(CriticalityWbName)
-    If tag.FailureCode <> "" Then
-        Set ws = wb.Worksheets(tag.FailureCode)
-        tag.Criticality = ws.Range("K1")
-    Else
-        ' some error message here
-    End If
+    Select Case tag.FailureCode
+        Case "SOFT", "LOOP", vbNullString
+        'If tag.FailureCode <> "" Then
+            'Debug.Print "Blank Failure code for "; tag.ID
+            tag.Criticality = "F"
+        'Else
+            ' some error message here
+        Case Else
+            Set ws = wb.Worksheets(tag.FailureCode)
+            tag.Criticality = ws.Range("K1")
+    End Select
+        'End If
     'ws.Activate
     
 End Sub

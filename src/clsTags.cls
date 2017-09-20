@@ -9,7 +9,7 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
-'@Folder("VBAProject")
+'@Folder("CriticalityAssignment")
 
 Private pContent As New Collection
 
@@ -114,3 +114,9 @@ Sub OutputTagListings(StartCell As Range)
     Application.ScreenUpdating = True
     Application.Calculation = xlCalculationAutomatic
 End Sub
+
+
+Public Function All() As Collection
+    Set All = pContent
+End Function
+

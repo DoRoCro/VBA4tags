@@ -9,7 +9,7 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
-'@Folder("VBAProject")
+'@Folder("CriticalityAssignment")
 
 Private pSystemID As String
 Private pDescription As String

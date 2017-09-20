@@ -9,7 +9,7 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
-'@Folder("VBAProject")
+'@Folder("CriticalityAssignment")
 Private pImpacts(4) As String * 1
 Private pLikelihoods(4) As String * 1
 Public Enum SEPB
