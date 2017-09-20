@@ -127,11 +127,7 @@ Sub SetTagCriticalityByFailureCode(tag As clsTag)
     Set wb = Workbooks(CriticalityWbName)
     Select Case tag.FailureCode
         Case "SOFT", "LOOP", vbNullString
-        'If tag.FailureCode <> "" Then
-            'Debug.Print "Blank Failure code for "; tag.ID
             tag.Criticality = "F"
-        'Else
-            ' some error message here
         Case Else
             Set ws = wb.Worksheets(tag.FailureCode)
             tag.Criticality = ws.Range("K1")
