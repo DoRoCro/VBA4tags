@@ -12,6 +12,7 @@ Option Explicit
 
 Private pID As String
 Private pDescription As String
+Private pOutputSheet As Worksheet
 
 
 Public Property Get ID() As String
@@ -20,3 +21,26 @@ End Property
 Public Property Let ID(Value As String)
     pID = Value
 End Property
+
+Public Property Get OutputSheet() As Worksheet
+    Set OutputSheet = pOutputSheet
+End Property
+Public Property Set OutputSheet(Value As Worksheet)
+    Set pOutputSheet = Value
+End Property
+
+Private Sub class_initialize()
+    'Set pOutputSheet = New Worksheet
+End Sub
+
+Public Function CreateDisciplineOutputSheet(wbsheets As Sheets) As Worksheet
+    'TODO add guards if discipline worksheet already exists
+    Dim newWs As Worksheet
+    If Me.ID = "" Then Me.ID = "BLANK"
+    If Me.ID = "N/A" Then Me.ID = "N_A"
+    Set newWs = wbsheets.Add(After:=Sheets(Sheets.Count))
+    newWs.Name = Me.ID
+    Set Me.OutputSheet = wbsheets(Me.ID)
+    Set CreateDisciplineOutputSheet = newWs
+End Function
+

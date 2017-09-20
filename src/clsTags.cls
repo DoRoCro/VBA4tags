@@ -7,6 +7,8 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+Option Explicit
+
 '@Folder("VBAProject")
 
 Private pContent As New Collection
@@ -37,7 +39,7 @@ Sub LoadTable(table As ListObject)
             Else
                 .isSIS = False
             End If
-            .Discipline = row.Range(1, 10)
+            .discipline = row.Range(1, 10)
             .SystemID = row.Range(1, 11)
         End With
         'add it to collection
@@ -70,7 +72,7 @@ Sub LoadArray(table As Variant)
             Else
                 .isSIS = False
             End If
-            .Discipline = table(row, 10)
+            .discipline = table(row, 10)
             .SystemID = table(row, 11)
         End With
         'add it to collection

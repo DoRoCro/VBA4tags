@@ -71,7 +71,7 @@ Public Sub TestReadLotsOfTags()
     Debug.Print UBound(tagArray)
     Debug.Print tags.Count
     Debug.Print "Tag 1 = ", tags.Item(1).ID
-    Assert.isTrue (tags.Count = 104572)  'NB - runs over end of table...
+    Assert.istrue (tags.Count = 104572)  'NB - runs over end of table...
     'Assert.IsTrue (UBound(tagArray) - LBound(tagArray) + 1 = 104573) 'Appears to default to 1 indexing
 
 TestExit:

@@ -7,11 +7,13 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+Option Explicit
+
 '@Folder("VBAProject")
 
 Private pSystemID As String
 Private pDescription As String
-'Private pFluidType As String
+Private pFluidType As String
 Private pSystemNumber As String
 
 Private pIsUtility As Boolean
@@ -40,7 +42,7 @@ Public Property Get FluidType() As String
     FluidType = pFluidType
 End Property
 Public Property Let FluidType(Value As String)
-    pFluidType = Value
+    Set pFluidType = Value
 End Property
 
 Public Property Get isUtility() As String

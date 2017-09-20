@@ -47,14 +47,14 @@ Public Sub TestCalculateCriticalityGetsRightWorksheet()
         .Description = "Test Tag"
         .ID = "XYZ-1234"
         .FailureCode = "FA_CFBC"
-        .Discipline = "INST"
+        .discipline = "INST"
         .SystemID = "78"
     End With
     
     'Act:
     SetTagCriticalityByFailureCode tag
     'Assert
-    Assert.isTrue (Excel.ActiveSheet.Name = "FA_CFBC")
+    Assert.istrue (Excel.ActiveSheet.Name = "FA_CFBC")
     'Assert.inconclusive
     'Assert.Equal "A", tag.Criticality
 

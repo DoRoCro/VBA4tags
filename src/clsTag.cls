@@ -68,10 +68,10 @@ Public Property Let ISOcode(Value As String)
     pISOcode = Value
 End Property
 
-Public Property Get Discipline() As String
-    Discipline = pDiscipline
+Public Property Get discipline() As String
+    discipline = pDiscipline
 End Property
-Public Property Let Discipline(Value As String)
+Public Property Let discipline(Value As String)
     pDiscipline = Value
 End Property
 
@@ -114,7 +114,7 @@ Public Property Let RiskLikelihood(category As SEPB, Value As String)
     pRisks.Likelihood(category) = Value
 End Property
 
-Private Sub Class_Initialize()
+Private Sub class_initialize()
   Set pRisks = New clsSEPB
 End Sub
 
@@ -128,7 +128,7 @@ Public Sub WriteToWorksheet(StartCell As Range)
         StartCell.Offset(0, 5).Formula = .ISOcode
         StartCell.Offset(0, 6).Formula = .isSIL
         StartCell.Offset(0, 7).Formula = .isSIS
-        StartCell.Offset(0, 8).Formula = .Discipline
+        StartCell.Offset(0, 8).Formula = .discipline
         StartCell.Offset(0, 9).Formula = .SystemID
         StartCell.Offset(0, 10).Formula = .Criticality
         StartCell.Offset(0, 11).Formula = .Risks(Safety)
@@ -136,4 +136,26 @@ Public Sub WriteToWorksheet(StartCell As Range)
         StartCell.Offset(0, 13).Formula = .Risks(Production)
         StartCell.Offset(0, 14).Formula = .Risks(Business)
     End With
+    'move cell down one row for next input
+    StartCell = StartCell.Offset(0, 1)
 End Sub
+Public Sub FillTagHeaders(StartCell As Range)
+    StartCell.Formula = "Functional Location"
+    StartCell.Offset(0, 1).Formula = "Functional Loccation Description"
+    StartCell.Offset(0, 2).Formula = "FailureCode"
+    StartCell.Offset(0, 3).Formula = "Status"
+    StartCell.Offset(0, 4).Formula = "UMCLplus"
+    StartCell.Offset(0, 5).Formula = "ISOcode"
+    StartCell.Offset(0, 6).Formula = "isSIL"
+    StartCell.Offset(0, 7).Formula = "isSIS"
+    StartCell.Offset(0, 8).Formula = "discipline"
+    StartCell.Offset(0, 9).Formula = "SystemID"
+    StartCell.Offset(0, 10).Formula = "Criticality"
+    StartCell.Offset(0, 11).Formula = "Risks(Safety)"
+    StartCell.Offset(0, 12).Formula = "Risks(Environment)"
+    StartCell.Offset(0, 13).Formula = "Risks(Production)"
+    StartCell.Offset(0, 14).Formula = "Risks(Business)"
+    'move cell down one row for next input
+    StartCell = StartCell.Offset(0, 1)
+End Sub
+

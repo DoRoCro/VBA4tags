@@ -12,14 +12,14 @@ Const SystemsSheetName = "SystemsUtilities"
 Const SystemsTableName = "SystemsList"
 
 Private tags As clsTags
-Private Disciplines As clsDisciplines
+Private disciplines As clsDisciplines
 Private Systems As clsSystems
 
 Sub AssignCriticalities()
     Call LoadTags
     Debug.Print "Tags count ="; tags.Count
     Debug.Print "Systems count ="; Systems.Count
-    Debug.Print "Disciplines count ="; Disciplines.Count
+    Debug.Print "Disciplines count ="; disciplines.Count
 
 'foreach tag
     'lookup failure code output
@@ -54,9 +54,9 @@ Sub LoadTags()
 'Read in disciplines
     Set ws = wb.Worksheets(DisciplinesSheetName)
     Set tbl = ws.ListObjects(DisciplinesTableName)
-    Set Disciplines = New clsDisciplines
-    Disciplines.LoadTable tbl
-    Debug.Print "finished loading disciplines, count ="; Disciplines.Count
+    Set disciplines = New clsDisciplines
+    disciplines.LoadTable tbl
+    Debug.Print "finished loading disciplines, count ="; disciplines.Count
 
 'Read in systems
     Set ws = wb.Worksheets(SystemsSheetName)
@@ -85,5 +85,4 @@ Sub SetTagCriticalityByFailureCode(tag As clsTag)
     ws.Activate
     
 End Sub
-
 

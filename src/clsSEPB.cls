@@ -7,6 +7,8 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+Option Explicit
+
 '@Folder("VBAProject")
 Private pImpacts(4) As String * 1
 Private pLikelihoods(4) As String * 1

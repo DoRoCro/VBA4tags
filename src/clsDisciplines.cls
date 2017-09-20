@@ -7,22 +7,24 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+Option Explicit
+
 '@Folder("VBAProject")
 Private pContent As New Collection
 
 Sub LoadTable(table As ListObject)
-    Dim Discipline As clsDiscipline
+    Dim discipline As clsDiscipline
     Dim row As ListRow  'for use in for Each
 
     For Each row In table.ListRows
         'read an entry
-        Set Discipline = New clsDiscipline
+        Set discipline = New clsDiscipline
         'Debug.Print row.index, row.Range(1, 1)
-        With Discipline
+        With discipline
             .ID = row.Range(1, 1)
         End With
         'add it to collection
-        Me.Add Discipline
+        Me.Add discipline
     Next
 End Sub
 
@@ -37,4 +39,12 @@ End Function
 Function Count() As LongPtr
     Count = pContent.Count
 End Function
+
+Public Sub createOutputSheetsByDiscipline() ' TODO add check and delete/rename if existing discipline worksheet
+    Dim discipline As clsDiscipline
+    For Each discipline In pContent
+      Set discipline.OutputSheet = discipline.CreateDisciplineOutputSheet(ThisWorkbook.Sheets)
+    Next
+End Sub
+
 
