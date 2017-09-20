@@ -136,8 +136,6 @@ Public Sub WriteToWorksheet(StartCell As Range)
         StartCell.Offset(0, 13).Formula = .Risks(Production)
         StartCell.Offset(0, 14).Formula = .Risks(Business)
     End With
-    'move cell down one row for next input
-    StartCell = StartCell.Offset(0, 1)
 End Sub
 Public Sub FillTagHeaders(StartCell As Range)
     StartCell.Formula = "Functional Location"

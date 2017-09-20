@@ -263,7 +263,7 @@ Public Sub TestWriteTagToWorksheet()
     'Act:
     Set StartCell = ws.Range("B1")
     tag.FillTagHeaders StartCell
-    Set StartCell = ws.Range("B2")ls
+    Set StartCell = ws.Range("B2")
     tag.WriteToWorksheet StartCell
     
     'Assert:

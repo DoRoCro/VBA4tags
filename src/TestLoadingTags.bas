@@ -79,3 +79,43 @@ TestExit:
 TestFail:
     Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
 End Sub
+
+'@TestMethod
+Public Sub TestFullTags()
+    On Error GoTo TestFail
+
+    Dim tag As clsTag
+    Dim tags As clsTags
+    Dim wb As Workbook
+    Dim ws As Worksheet
+    Dim tbl As ListObject
+    Dim tagArray As Variant
+    Dim x As Long          ' >32000 entries
+
+    'Act:
+    Set wb = ThisWorkbook
+    Set ws = wb.Worksheets("TestFullTags")
+    Set tag = New clsTag
+    Set tags = New clsTags
+    Set tbl = ws.ListObjects("TestFullTags")
+    Debug.Print tbl.Name
+    'Create Array List from Table
+    tagArray = tbl.DataBodyRange
+    tags.LoadArray tagArray
+    tags.OutputTagListings ThisWorkbook.Worksheets("Output").Range("B10")
+    
+    'Assert:
+    'Debug.Print x, UBound(tagArray), LBound(tagArray)
+    'Debug.Print tag.TagID, tag.TagDescription
+    'Assert.IsTrue (tag.TagID = "BP")
+    'Debug.Print UBound(tagArray)
+    Debug.Print tags.Count
+    Debug.Print "Tag 1 = ", tags.Item(1).ID
+    Assert.istrue (tags.Count = 23)
+
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+End Sub
+

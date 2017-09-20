@@ -91,3 +91,13 @@ End Function
 Function Count() As LongPtr
     Count = pContent.Count
 End Function
+
+Sub OutputTagListings(StartCell As Range)
+    Dim tag As clsTag
+    Dim counter As Long
+    counter = 0
+    For Each tag In pContent
+        tag.WriteToWorksheet StartCell.Offset(counter, 0)
+        counter = counter + 1
+    Next
+End Sub
