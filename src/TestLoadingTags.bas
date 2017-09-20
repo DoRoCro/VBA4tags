@@ -102,7 +102,8 @@ Public Sub TestFullTags()
     'Create Array List from Table
     tagArray = tbl.DataBodyRange
     tags.LoadArray tagArray
-    tags.OutputTagListings ThisWorkbook.Worksheets("Output").Range("B10")
+    tag.FillTagHeaders ThisWorkbook.Worksheets("Output").Range("B10")
+    tags.OutputTagListings ThisWorkbook.Worksheets("Output").Range("B11")
     
     'Assert:
     'Debug.Print x, UBound(tagArray), LBound(tagArray)

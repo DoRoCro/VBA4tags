@@ -82,7 +82,7 @@ Sub SetTagCriticalityByFailureCode(tag As clsTag)
     Else
         ' some error message here
     End If
-    ws.Activate
+    'ws.Activate
     
 End Sub
 

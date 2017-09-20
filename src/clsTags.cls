@@ -95,9 +95,22 @@ End Function
 Sub OutputTagListings(StartCell As Range)
     Dim tag As clsTag
     Dim counter As Long
-    counter = 0
+    Dim outputArray() As Variant
+    ReDim outputArray(1 To Me.Count, 12)
+    counter = 1
+    Application.ScreenUpdating = False
+    Application.Calculation = xlCalculationManual
+        
     For Each tag In pContent
         tag.WriteToWorksheet StartCell.Offset(counter, 0)
+'        With tag
+'            outputArray(counter, 1) = .ID
+'            outputArray(counter, 2) = .Description
+'        End With
         counter = counter + 1
+        
     Next
+'    StartCell = outputArray
+    Application.ScreenUpdating = True
+    Application.Calculation = xlCalculationAutomatic
 End Sub
