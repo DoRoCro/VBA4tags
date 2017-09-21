@@ -64,11 +64,11 @@ Public Sub TestCopyDefaultCriticalitiesIntoTemplateWorksheet()
     Call CopyDefaultCriticalitiesIntoTemplateWorksheet(codeRow, ThisWorkbook.Worksheets("TestFailureCodeTemplate"), defaultsTable)
     'Assert:
     Debug.Print ThisWorkbook.Worksheets("TestDefaultCriticalities").Range("B1").Formula
-    Assert.istrue ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("B1").Formula = "FA_CFBC"
-    Assert.istrue ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("B16").Formula = "E"
-    Assert.istrue ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("C16").Value = 8
-    Assert.istrue ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("B22").Formula = "H"
-    Assert.istrue ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("C22").Formula = "2"
+    Assert.isTrue ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("B1").Formula = "FA_CFBC"
+    Assert.isTrue ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("B16").Formula = "E"
+    Assert.isTrue ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("C16").Value = 8
+    Assert.isTrue ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("B22").Formula = "H"
+    Assert.isTrue ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("C22").Formula = "2"
 TestExit:
     Exit Sub
 TestFail:

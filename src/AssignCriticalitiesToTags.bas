@@ -10,10 +10,14 @@ Const DisciplinesSheetName = "DataTables"
 Const DisciplinesTableName = "DisciplinesList"
 Const SystemsSheetName = "SystemsUtilities"
 Const SystemsTableName = "SystemsList"
+Const MAHSheetName = "MAHBarrierSetup"
+Const MAHTableName = "MAHBarrierForFailureCode"
 
 Private tags As clsTags
 Private disciplines As clsDisciplines
 Private Systems As clsSystems
+Private MAHprocess As clsMAHlist
+Private MAHutility As clsMAHlist
 
 Sub AssignCriticalities()
     Set tags = New clsTags
@@ -36,7 +40,11 @@ Sub AssignCriticalities()
             Case "SOFT"
                 tag.Criticality = "S"
             Case Else
-                Call SetTagCriticalityByFailureCode(tag)
+                If Systems.FindByNumber(tag.SystemID).isUtility Then
+                    Call SetTagCriticalityByFailureCode(tag, MAHutility)
+                Else
+                    Call SetTagCriticalityByFailureCode(tag, MAHprocess)
+                End If
         End Select
     Next
     Debug.Print "Default criticalities assigned"
@@ -115,21 +123,35 @@ Sub LoadTables(tags As clsTags, Systems As clsSystems, Discplines As clsDiscipli
     Debug.Print "finished loading systems, count ="; Systems.Count
 
 'Read in MAH
+    Set ws = wb.Worksheets(MAHSheetName)
+    Set tbl = ws.ListObjects(MAHTableName)
+    Set MAHprocess = New clsMAHlist
+    Set MAHutility = New clsMAHlist
+    MAHprocess.LoadTableProcess tbl
+    MAHutility.LoadTableUtility tbl
+    
 'Read in Ex list - optional, if not added to tag.
 
 
 End Sub
 
 'Sub CalculateTagCriticality(tag As clsTag, Systems As clsSystems, Optional MAHBarriers As Collection, Optional Overrides As Collection)
-Sub SetTagCriticalityByFailureCode(tag As clsTag)
+Sub SetTagCriticalityByFailureCode(tag As clsTag, MAH As clsMAHlist)
     Dim wb As Workbook
     Dim ws As Worksheet
+    Dim MAHCell As Range
+    Dim resetvalue As String
     Set wb = Workbooks(CriticalityWbName)
     Select Case tag.FailureCode
         Case "SOFT", "LOOP", vbNullString
             tag.Criticality = "F"
         Case Else
             Set ws = wb.Worksheets(tag.FailureCode)
+            Set MAHCell = ws.Range("I17")
+            resetvalue = MAHCell.Text
+            If MAH.Count > 0 Then                              'TODO think how to refactor this or change parameters to function
+                MAHCell.Value = MAH.FindByID(tag.FailureCode).Component
+            End If
             tag.Criticality = ws.Range("K1")
             tag.RiskImpact(Safety) = ws.Range("B9")
             tag.RiskImpact(Environment) = ws.Range("B10")
@@ -142,6 +164,7 @@ Sub SetTagCriticalityByFailureCode(tag As clsTag)
             tag.Justification = "MAH Barrier: " & ws.Range("I17").Text & "; " & _
                                 "IPL/LOPA = " & ws.Range("J35").Text & _
                                 "; Regulatory override = " & ws.Range("I37").Text
+            MAHCell.Value = resetvalue
     End Select
         'End If
     'ws.Activate

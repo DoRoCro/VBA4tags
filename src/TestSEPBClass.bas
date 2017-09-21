@@ -49,11 +49,11 @@ Public Sub TestSEPBInput()
     Assert.AreEqual SEPB.Risk(Safety), "A1"
     Assert.AreEqual SEPB.Impact(Safety), "A"
     Assert.AreEqual SEPB.Likelihood(Safety), "1", "number as string"
-    Assert.istrue (SEPB.Likelihood(Safety) = 1), "number as integer"
+    Assert.isTrue (SEPB.Likelihood(Safety) = 1), "number as integer"
     Assert.AreEqual SEPB.Risk(Business), "E3"
     Assert.AreEqual SEPB.Impact(Business), "E"
     Assert.AreEqual SEPB.Likelihood(Business), "3", "number as string"
-    Assert.istrue (SEPB.Likelihood(Business) = 3), "number as integer"
+    Assert.isTrue (SEPB.Likelihood(Business) = 3), "number as integer"
     
     'Assert.Inconclusive
 

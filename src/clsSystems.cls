@@ -39,11 +39,15 @@ Sub LoadTable(table As ListObject)
 End Sub
 
 Sub Add(newSystem As clsSystem)
-    pContent.Add newSystem
+    pContent.Add newSystem, newSystem.SystemNumber
 End Sub
 
 Function Item(index As LongPtr) As clsSystem
     Set Item = pContent.Item(index)
+End Function
+
+Function FindByNumber(SytemNumber As String) As clsSystem
+    Set FindByNumber = pContent.Item(index)
 End Function
 
 Function Count() As LongPtr
