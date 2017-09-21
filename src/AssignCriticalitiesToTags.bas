@@ -143,7 +143,7 @@ Sub SetTagCriticalityByFailureCode(tag As clsTag, MAH As clsMAHlist)
     Dim resetvalue As String
     Set wb = Workbooks(CriticalityWbName)
     Select Case tag.FailureCode
-        Case "SOFT", "LOOP", vbNullString
+        Case "SOFT", "LOOP", vbNullString      'ignore these failure codes
             tag.Criticality = "F"
         Case Else
             Set ws = wb.Worksheets(tag.FailureCode)
