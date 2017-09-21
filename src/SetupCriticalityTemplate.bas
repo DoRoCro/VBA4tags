@@ -36,6 +36,8 @@ Sub CreateWorksheetsFromFailureCodeList()
             Debug.Print rowsWithTagsCount, rowCell(row, "FailureCode"), rowCell(row, "Number found in ASSET-C WND")
             
             'Set newWs = wb.Sheets.Add(After:=wb.Sheets(wb.Sheets.Count))
+            templateWs.Activate
+            templateWs.Range("H17").Select
             templateWs.Copy After:=wb.Sheets(wb.Sheets.Count)
             Set newWs = wb.Sheets(wb.Sheets.Count)    ' can't do this on previous line as Copy is a Sub procedure (I think)
             newWs.Name = rowCell(row, "FailureCode")  ' name sheet from failure code

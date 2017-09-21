@@ -7,12 +7,14 @@ Option Private Module
 
 Private Assert As Object
 Private Fakes As Object
+Public CriticalityWbName As String
 
 '@ModuleInitialize
 Public Sub ModuleInitialize()
     'this method runs once per module.
     Set Assert = CreateObject("Rubberduck.AssertClass")
     Set Fakes = CreateObject("Rubberduck.FakesProvider")
+    CriticalityWbName = ThisWorkbook.Name
 End Sub
 
 '@ModuleCleanup
@@ -268,6 +270,33 @@ Public Sub TestWriteTagToWorksheet()
     
     'Assert:
     Assert.isTrue (ws.Range("B2").Value = "TEST-TAG")
+
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & err.Number & " - " & err.Description
+End Sub
+
+'@TestMethod
+Public Sub TestCriticalityByFailureCode() 'TODO Rename test
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Dim tag As New clsTag
+    Dim ws As Worksheet
+    Dim StartCell As Range
+    Set tag = New clsTag
+    Set ws = ThisWorkbook.Worksheets("TestFailureCodeTemplate")
+    tag.ID = "TEST-TAG"
+    tag.FailureCode = "TestFailureCodeTemplate"
+    tag.RiskImpact(Environment) = "D"
+    tag.RiskLikelihood(Environment) = "5"
+
+    'Act:
+    tag.SetDefaultCriticalityByFailureCode
+    
+    'Assert:
+    Assert.isTrue (tag.Criticality = "A")
 
 TestExit:
     Exit Sub

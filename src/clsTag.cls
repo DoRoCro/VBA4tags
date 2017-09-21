@@ -168,3 +168,42 @@ Public Sub FillTagHeaders(StartCell As Range)
     StartCell.Offset(0, 14).Formula = "Risks(Business)"
 End Sub
 
+Sub SetDefaultCriticalityByFailureCode()
+    Dim wb As Workbook
+    Dim ws As Worksheet
+    Dim MAHCell As Range
+    Dim resetComponent As String
+    Dim resetComment As String
+    Set wb = Workbooks(CriticalityWbName)
+    Select Case Me.FailureCode
+        Case "SOFT", "LOOP", vbNullString      'ignore these failure codes
+            Me.Criticality = "F"
+        Case Else
+            Set ws = wb.Worksheets(Me.FailureCode)
+            Set MAHCell = ws.Range("I17")
+'            resetComponent = MAHCell.Text
+'            resetComment = ws.Range("I19").Text
+'            If MAH.Count > 0 Then                              'TODO think how to refactor this or change parameters to function
+'                MAHCell.Value = MAH.FindByID(tag.FailureCode).Component
+'            End If
+            Me.Criticality = ws.Range("K1")
+            Me.RiskImpact(Safety) = ws.Range("B9")
+            Me.RiskImpact(Environment) = ws.Range("B10")
+            Me.RiskImpact(Production) = ws.Range("B11")
+            Me.RiskImpact(Business) = ws.Range("B12")
+            Me.RiskLikelihood(Safety) = ws.Range("C9")
+            Me.RiskLikelihood(Environment) = ws.Range("C10")
+            Me.RiskLikelihood(Production) = ws.Range("C11")
+            Me.RiskLikelihood(Business) = ws.Range("C12")
+            Me.Justification = "MAH Barrier: " & ws.Range("I17").Text & "; " & _
+                                "MAH comment: " & ws.Range("I19").Text & "; " & _
+                                "IPL/LOPA = " & ws.Range("J35").Text & _
+                                "; Regulatory override = " & ws.Range("I37").Text
+'            MAHCell.Value = resetComponent
+'            ws.Range("i19") = resetComment
+    End Select
+        'End If
+    'ws.Activate
+    
+End Sub
+
