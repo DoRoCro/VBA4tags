@@ -55,7 +55,7 @@ Public Sub TestMAHbasics()
 TestExit:
     Exit Sub
 TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+    Assert.Fail "Test raised an error: #" & err.Number & " - " & err.Description
 End Sub
 
 '@TestMethod
@@ -84,7 +84,7 @@ Public Sub TestMAHAddtoList()
 TestExit:
     Exit Sub
 TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+    Assert.Fail "Test raised an error: #" & err.Number & " - " & err.Description
 End Sub
 
 '@TestMethod
@@ -117,7 +117,7 @@ Public Sub TestLoadMAHDefaults()
 TestExit:
     Exit Sub
 TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+    Assert.Fail "Test raised an error: #" & err.Number & " - " & err.Description
 End Sub
 
 '@TestMethod
@@ -148,5 +148,5 @@ Public Sub TestMAHFindByFailureCode()
 TestExit:
     Exit Sub
 TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+    Assert.Fail "Test raised an error: #" & err.Number & " - " & err.Description
 End Sub

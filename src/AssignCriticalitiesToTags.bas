@@ -20,6 +20,7 @@ Private MAHprocess As clsMAHlist
 Private MAHutility As clsMAHlist
 
 Sub AssignCriticalities()
+    Dim tag As clsTag
     Set tags = New clsTags
     Set Systems = New clsSystems
     Set disciplines = New clsDisciplines
@@ -31,23 +32,6 @@ Sub AssignCriticalities()
 'foreach tag
     'lookup failure code output
     ' Set criticalities by failure code as first pass
-    Dim tag As clsTag
-    For Each tag In tags.All
-        'Debug.Print tag.ID
-        Select Case tag.Status
-            Case "DEL"
-                tag.Criticality = "D"
-            Case "SOFT"
-                tag.Criticality = "S"
-            Case Else
-                If Systems.FindByNumber(tag.SystemID).isUtility Then
-                    Call SetTagCriticalityByFailureCode(tag, MAHutility)
-                Else
-                    Call SetTagCriticalityByFailureCode(tag, MAHprocess)
-                End If
-        End Select
-    Next
-    Debug.Print "Default criticalities assigned"
 
     'set criticality using default MAH barrier, if defined
     'if isUtility then look at downgrade options / revising MAH barrier
@@ -74,8 +58,35 @@ Sub AssignCriticalities()
     Dim discWs As Worksheet
     'disciplines.createOutputSheetsByDiscipline
     Dim Discipline As clsDiscipline
+    Dim counter As Long
+    counter = 0
     For Each Discipline In disciplines.All
         Set disciplineTags = tags.byDiscipline(Discipline)
+        Excel.Application.ScreenUpdating = False
+        For Each tag In disciplineTags.All
+            counter = counter + 1
+            'Debug.Print tag.ID
+            Select Case tag.Status
+                Case "DEL"
+                    tag.Criticality = "D"
+                Case "SOFT"
+                    tag.Criticality = "S"
+                Case Else
+                    If Systems.Contains(tag.SystemID) Then
+                        If Systems.FindByNumber(tag.SystemID).isUtility Then
+                            Call SetTagCriticalityByFailureCode(tag, MAHutility)
+                        Else
+                            Call SetTagCriticalityByFailureCode(tag, MAHprocess)
+                        End If
+                    Else
+                        tag.Criticality = "X"
+                    End If
+            End Select
+            If counter Mod 100 = 0 Then Debug.Print "Tags processed = ", counter
+        Next
+        Excel.Application.ScreenUpdating = True
+        Debug.Print "Default criticalities assigned for ", Discipline.ID
+        
         Set discWs = Discipline.CreateDisciplineOutputSheet(ThisWorkbook.Sheets)
 '        Select Case Discipline.ID
 '            Case vbNullString
@@ -140,7 +151,8 @@ Sub SetTagCriticalityByFailureCode(tag As clsTag, MAH As clsMAHlist)
     Dim wb As Workbook
     Dim ws As Worksheet
     Dim MAHCell As Range
-    Dim resetvalue As String
+    Dim resetComponent As String
+    Dim resetComment As String
     Set wb = Workbooks(CriticalityWbName)
     Select Case tag.FailureCode
         Case "SOFT", "LOOP", vbNullString      'ignore these failure codes
@@ -148,7 +160,8 @@ Sub SetTagCriticalityByFailureCode(tag As clsTag, MAH As clsMAHlist)
         Case Else
             Set ws = wb.Worksheets(tag.FailureCode)
             Set MAHCell = ws.Range("I17")
-            resetvalue = MAHCell.Text
+            resetComponent = MAHCell.Text
+            resetComment = ws.Range("I19").Text
             If MAH.Count > 0 Then                              'TODO think how to refactor this or change parameters to function
                 MAHCell.Value = MAH.FindByID(tag.FailureCode).Component
             End If
@@ -162,9 +175,11 @@ Sub SetTagCriticalityByFailureCode(tag As clsTag, MAH As clsMAHlist)
             tag.RiskLikelihood(Production) = ws.Range("C11")
             tag.RiskLikelihood(Business) = ws.Range("C12")
             tag.Justification = "MAH Barrier: " & ws.Range("I17").Text & "; " & _
+                                "MAH comment: " & ws.Range("I19").Text & "; " & _
                                 "IPL/LOPA = " & ws.Range("J35").Text & _
                                 "; Regulatory override = " & ws.Range("I37").Text
-            MAHCell.Value = resetvalue
+            MAHCell.Value = resetComponent
+            ws.Range("i19") = resetComment
     End Select
         'End If
     'ws.Activate

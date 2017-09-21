@@ -14,15 +14,15 @@ Option Explicit
 Private pContent As New Collection
 
 Sub LoadTable(table As ListObject)
-    Dim System As clsSystem
+    Dim system As clsSystem
     Dim row As ListRow  'for use in for Each
 
 
     For Each row In table.ListRows
         'read an entry
-        Set System = New clsSystem
+        Set system = New clsSystem
         'Debug.Print row.index, row.Range(1, 1)
-        With System
+        With system
             .SystemID = row.Range(1, 1)
             .Description = row.Range(1, 2)
             .SystemNumber = row.Range(1, 3) 'as string
@@ -33,7 +33,7 @@ Sub LoadTable(table As ListObject)
             End If
         End With
         'add it to collection
-        Me.Add System
+        Me.Add system
         
     Next
 End Sub
@@ -54,4 +54,13 @@ Function Count() As LongPtr
     Count = pContent.Count
 End Function
 
-
+Function Contains(SystemID As String) As Boolean
+    Dim system As clsSystem
+    On Error GoTo err
+    Contains = True
+    Set system = pContent.Item("E-SYSTEM-" & SystemID)
+    Exit Function
+    
+err:
+    Contains = False
+End Function

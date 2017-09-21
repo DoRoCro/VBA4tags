@@ -61,6 +61,6 @@ Public Sub TestCalculateCriticalityGetsRightWorksheet()
 TestExit:
     Exit Sub
 TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+    Assert.Fail "Test raised an error: #" & err.Number & " - " & err.Description
 End Sub
 

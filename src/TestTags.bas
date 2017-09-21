@@ -50,7 +50,7 @@ Public Sub TestGetLetTagID()
 TestExit:
     Exit Sub
 TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+    Assert.Fail "Test raised an error: #" & err.Number & " - " & err.Description
 End Sub
 
 '@TestMethod
@@ -69,7 +69,7 @@ Public Sub TestGetLetTagDescription()
 TestExit:
     Exit Sub
 TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+    Assert.Fail "Test raised an error: #" & err.Number & " - " & err.Description
 End Sub
 
 
@@ -93,7 +93,7 @@ Public Sub TestGetTagIDFromCell()
 TestExit:
     Exit Sub
 TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+    Assert.Fail "Test raised an error: #" & err.Number & " - " & err.Description
 End Sub
 '@TestMethod
 Public Sub TestGetTagDescFromCell()
@@ -115,7 +115,7 @@ Public Sub TestGetTagDescFromCell()
 TestExit:
     Exit Sub
 TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+    Assert.Fail "Test raised an error: #" & err.Number & " - " & err.Description
 End Sub
 '@TestMethod
 Public Sub TestGetTagFromTable()
@@ -151,7 +151,7 @@ Public Sub TestGetTagFromTable()
 TestExit:
     Exit Sub
 TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+    Assert.Fail "Test raised an error: #" & err.Number & " - " & err.Description
 End Sub
 
 '@TestMethod
@@ -193,7 +193,7 @@ Public Sub TestReadTableCreateTags()
 TestExit:
     Exit Sub
 TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+    Assert.Fail "Test raised an error: #" & err.Number & " - " & err.Description
 End Sub
 
 
@@ -220,7 +220,7 @@ Public Sub TestLoadTagsFromTable()
 TestExit:
     Exit Sub
 TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+    Assert.Fail "Test raised an error: #" & err.Number & " - " & err.Description
 End Sub
 
 
@@ -245,7 +245,7 @@ Public Sub TestTagRisks()
 TestExit:
     Exit Sub
 TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+    Assert.Fail "Test raised an error: #" & err.Number & " - " & err.Description
 End Sub
 
 '@TestMethod
@@ -272,7 +272,7 @@ Public Sub TestWriteTagToWorksheet()
 TestExit:
     Exit Sub
 TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+    Assert.Fail "Test raised an error: #" & err.Number & " - " & err.Description
 End Sub
 
 

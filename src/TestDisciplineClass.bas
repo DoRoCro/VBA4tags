@@ -68,7 +68,7 @@ Public Sub TestDisciplineLoadsFromTable()
 TestExit:
     Exit Sub
 TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+    Assert.Fail "Test raised an error: #" & err.Number & " - " & err.Description
 End Sub
 
 '@TestMethod
@@ -102,7 +102,7 @@ Public Sub TestDisciplinesClassLoads()
 TestExit:
     Exit Sub
 TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+    Assert.Fail "Test raised an error: #" & err.Number & " - " & err.Description
 End Sub
 
 '@TestMethod
@@ -122,7 +122,7 @@ Public Sub TestCreateOutputSheet()
 TestExit:
     Exit Sub
 TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+    Assert.Fail "Test raised an error: #" & err.Number & " - " & err.Description
 End Sub
 
 '@TestMethod
@@ -143,7 +143,7 @@ Public Sub TestCreateOutputSheetsAllDisciplines()
 TestExit:
     Exit Sub
 TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+    Assert.Fail "Test raised an error: #" & err.Number & " - " & err.Description
 End Sub
 
 

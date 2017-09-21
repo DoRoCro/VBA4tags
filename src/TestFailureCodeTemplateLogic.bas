@@ -104,7 +104,7 @@ Public Sub TestInitialStateGivesC()
 TestExit:
     Exit Sub
 TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+    Assert.Fail "Test raised an error: #" & err.Number & " - " & err.Description
 End Sub
 
 '@TestMethod
@@ -121,7 +121,7 @@ Public Sub TestSafetyA1GivesCAndSCE()
 TestExit:
     Exit Sub
 TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+    Assert.Fail "Test raised an error: #" & err.Number & " - " & err.Description
 End Sub
 
 '@TestMethod
@@ -142,6 +142,6 @@ Public Sub TestSafetyA7GivesCAndSCE()
 TestExit:
     Exit Sub
 TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+    Assert.Fail "Test raised an error: #" & err.Number & " - " & err.Description
 End Sub
 

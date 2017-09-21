@@ -48,7 +48,7 @@ Public Sub TestSystemHasID()
 TestExit:
     Exit Sub
 TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+    Assert.Fail "Test raised an error: #" & err.Number & " - " & err.Description
 End Sub
 
 '@TestMethod
@@ -74,7 +74,7 @@ Public Sub TestSystemHasDescriptionAndUtilityTest()
 TestExit:
     Exit Sub
 TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+    Assert.Fail "Test raised an error: #" & err.Number & " - " & err.Description
 End Sub
 
 ''@TestMethod
@@ -118,7 +118,31 @@ Public Sub TestLoadSystemsFromTable()
 TestExit:
     Exit Sub
 TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+    Assert.Fail "Test raised an error: #" & err.Number & " - " & err.Description
+End Sub
+
+'@TestMethod
+Public Sub TestSystemsContains() 'TODO Rename test
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Dim Systems As clsSystems
+    Set Systems = New clsSystems
+    Dim tbl As ListObject
+    Set tbl = ThisWorkbook.Worksheets("TestSystems").ListObjects("TestSystemsList")
+    
+    'Act:
+    Systems.LoadTable tbl
+    Debug.Print Systems.Item(1).SystemID
+    
+    'Assert:
+    Assert.isFalse Systems.Contains("N/A")
+    Assert.isTrue Systems.Contains("24")
+
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & err.Number & " - " & err.Description
 End Sub
 
 

@@ -75,8 +75,8 @@ Function getRow(table As ListObject, ColumnName As String, Key As String) As Lis
             Exit Function
         End If
     Next
-    If Err.Number <> 0 Then
-        Err.Clear
+    If err.Number <> 0 Then
+        err.Clear
         Set getRow = Nothing
     End If
 End Function
