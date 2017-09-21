@@ -7,7 +7,7 @@ Option Private Module
 
 Private Assert As Object
 Private Fakes As Object
-Public CriticalityWbName As String
+Private CriticalityWbName As String
 
 '@ModuleInitialize
 Public Sub ModuleInitialize()

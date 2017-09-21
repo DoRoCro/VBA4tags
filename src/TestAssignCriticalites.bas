@@ -7,12 +7,15 @@ Option Private Module
 
 Private Assert As Object
 Private Fakes As Object
+Public CriticalityWbName As String
+
 
 '@ModuleInitialize
 Public Sub ModuleInitialize()
     'this method runs once per module.
     Set Assert = CreateObject("Rubberduck.AssertClass")
     Set Fakes = CreateObject("Rubberduck.FakesProvider")
+    CriticalityWbName = ThisWorkbook.Name
 End Sub
 
 '@ModuleCleanup
@@ -40,19 +43,19 @@ Public Sub TestCalculateCriticalityGetsRightWorksheet()
     Dim wb As Workbook
     Dim ws As Worksheet
     Dim x As Long          ' >32000 entries
-    Set wb = Application.Workbooks("WND Criticality Template.xlsx")
-    Set ws = wb.Worksheets("AssetRegisterDefaultCodeApplied")
+    
     Set tag = New clsTag
     With tag
         .Description = "Test Tag"
         .ID = "XYZ-1234"
-        .FailureCode = "FA_CFBC"
+        .FailureCode = "TestFailureCodeTemplate"
         .Discipline = "INST"
         .SystemID = "78"
     End With
     
     'Act:
-    SetTagCriticalityByFailureCode tag, New clsMAHlist
+    'SetTagCriticalityByFailureCode tag, New clsMAHlist
+    tag.SetDefaultCriticalityByFailureCode
     'Assert
     'Assert.istrue (ws.Name = "FA_CFBC")
     'Assert.inconclusive

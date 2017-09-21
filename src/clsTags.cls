@@ -139,4 +139,36 @@ Public Function RemoveStatus(StatusCode As String) As clsTags
     Next tag
     Set RemoveStatus = tagsWithoutStatus
 End Function
+Public Function ProcessTags(Systems As clsSystems) As clsTags
+    Dim tag As clsTag
+    Dim TagsProcess As clsTags
+    Set TagsProcess = New clsTags
+    For Each tag In Me.All
+        If Systems.FindByNumber(tag.SystemID).isUtility Then TagsProcess.Add tag
+    Next tag
+    ProcessTags = TagsProcess
+End Function
+Public Function UtilityTags(Systems As clsSystems) As clsTags
+    Dim tag As clsTag
+    Dim TagsUtility As clsTags
+    Set TagsUtility = New clsTags
+    For Each tag In Me.All
+        If Not Systems.FindByNumber(tag.SystemID).isUtility Then TagsUtility.Add tag
+    Next tag
+    UtilityTags = TagsUtility
+End Function
+Public Function NoSystemTags(Systems As clsSystems) As clsTags
+    Dim tag As clsTag
+    Dim TagsNoSystem As New clsTags
+    For Each tag In Me.All
+        If Not Systems.Contains(tag.SystemID) Then TagsNoSystem.Add tag
+    Next tag
+    Set NoSystem = TagsNoSystem
+End Function
 
+Public Sub AssignDefaultCriticalities()
+    Dim tag As clsTag
+    For Each tag In Me.All
+        tag.SetDefaultCriticalityByFailureCode
+    Next tag
+End Sub
