@@ -42,13 +42,13 @@ Public Property Get FluidType() As String
     FluidType = pFluidType
 End Property
 Public Property Let FluidType(Value As String)
-    Set pFluidType = Value
+    pFluidType = Value
 End Property
 
-Public Property Get isUtility() As String
+Public Property Get isUtility() As Boolean
     isUtility = pIsUtility
 End Property
-Public Property Let isUtility(Value As String)
+Public Property Let isUtility(Value As Boolean)
     pIsUtility = Value
 End Property
 

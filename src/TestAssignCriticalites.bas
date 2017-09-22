@@ -7,7 +7,7 @@ Option Private Module
 
 Private Assert As Object
 Private Fakes As Object
-Public CriticalityWbName As String
+'Public CriticalityWbName As String
 
 
 '@ModuleInitialize
@@ -59,7 +59,7 @@ Public Sub TestCalculateCriticalityGetsRightWorksheet()
     'Assert
     'Assert.istrue (ws.Name = "FA_CFBC")
     'Assert.inconclusive
-    Assert.isTrue ("A" = tag.Criticality)
+    Assert.istrue ("A" = tag.Criticality)
 
 TestExit:
     Exit Sub

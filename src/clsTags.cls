@@ -144,18 +144,22 @@ Public Function ProcessTags(Systems As clsSystems) As clsTags
     Dim TagsProcess As clsTags
     Set TagsProcess = New clsTags
     For Each tag In Me.All
-        If Systems.FindByNumber(tag.SystemID).isUtility Then TagsProcess.Add tag
+        If Systems.Contains(tag.SystemID) Then
+            If Systems.FindByNumber(tag.SystemID).isUtility Then TagsProcess.Add tag
+        End If
     Next tag
-    ProcessTags = TagsProcess
+    Set ProcessTags = TagsProcess
 End Function
 Public Function UtilityTags(Systems As clsSystems) As clsTags
     Dim tag As clsTag
     Dim TagsUtility As clsTags
     Set TagsUtility = New clsTags
     For Each tag In Me.All
-        If Not Systems.FindByNumber(tag.SystemID).isUtility Then TagsUtility.Add tag
+        If Systems.Contains(tag.SystemID) Then
+            If Not Systems.FindByNumber(tag.SystemID).isUtility Then TagsUtility.Add tag
+        End If
     Next tag
-    UtilityTags = TagsUtility
+    Set UtilityTags = TagsUtility
 End Function
 Public Function NoSystemTags(Systems As clsSystems) As clsTags
     Dim tag As clsTag
@@ -163,7 +167,7 @@ Public Function NoSystemTags(Systems As clsSystems) As clsTags
     For Each tag In Me.All
         If Not Systems.Contains(tag.SystemID) Then TagsNoSystem.Add tag
     Next tag
-    Set NoSystem = TagsNoSystem
+    Set NoSystemTags = TagsNoSystem
 End Function
 
 Public Sub AssignDefaultCriticalities()

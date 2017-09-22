@@ -12,13 +12,17 @@ Const SystemsSheetName = "SystemsUtilities"
 Const SystemsTableName = "SystemsList"
 Const MAHSheetName = "MAHBarrierSetup"
 Const MAHTableName = "MAHBarrierForFailureCode"
+Const FailureCodesSheetName = "FailureCodeDefaultCriticality"
+Const FailureCodesTableName = "FailureCodeDefaultCriticalities_Table"
 
-Private CriticalityWbName As String
+Public CriticalityWbName As String
 Private tags As clsTags
 Private disciplines As clsDisciplines
 Private Systems As clsSystems
 Private MAHprocess As clsMAHlist
 Private MAHutility As clsMAHlist
+Private FailureCodes As clsFailureCodes
+
 
 Sub AssignCriticalities()
     CriticalityWbName = "WND Criticality Template.xlsx"
@@ -26,6 +30,7 @@ Sub AssignCriticalities()
     Set tags = New clsTags
     Set Systems = New clsSystems
     Set disciplines = New clsDisciplines
+    Set FailureCodes = New clsFailureCodes
     Call LoadTables(tags, Systems, disciplines)
     Debug.Print "Tags count ="; tags.Count
     Debug.Print "Systems count ="; Systems.Count
@@ -68,13 +73,13 @@ Sub AssignCriticalities()
         'setup for process tags
         
         'assign process tags
-        disciplineTags.ProcessTags.AssignDefaultCriticalities
+        disciplineTags.ProcessTags(Systems).AssignDefaultCriticalities
         'setup for utility tags
         'assign utility tags
-        disciplineTags.UtilityTags.AssignDefaultCriticalities
+        disciplineTags.UtilityTags(Systems).AssignDefaultCriticalities
         
-        'deal with nosystem tags
-        
+        'deal with nosystem tags, as utility for now
+        disciplineTags.NoSystemTags(Systems).AssignDefaultCriticalities
 
 '        For Each tag In disciplineTags.All
 '            counter = counter + 1
@@ -153,6 +158,13 @@ Sub LoadTables(tags As clsTags, Systems As clsSystems, Discplines As clsDiscipli
     Set MAHutility = New clsMAHlist
     MAHprocess.LoadTableProcess tbl
     MAHutility.LoadTableUtility tbl
+    
+'Read in FailureCodes
+    Set ws = wb.Worksheets(FailureCodesSheetName)
+    Set tbl = ws.ListObjects(FailureCodesTableName)
+    Set FailureCodes = New clsFailureCodes
+    FailureCodes.LoadTable tbl
+    
     
 'Read in Ex list - optional, if not added to tag.
 

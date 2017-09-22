@@ -7,7 +7,7 @@ Option Private Module
 
 Private Assert As Object
 Private Fakes As Object
-Private CriticalityWbName As String
+'Private CriticalityWbName As String
 
 '@ModuleInitialize
 Public Sub ModuleInitialize()
@@ -47,7 +47,7 @@ Public Sub TestGetLetTagID()
     'Act:
     tag.ID = strTag
     'Assert:
-    Assert.isTrue (strTag = tag.ID)
+    Assert.istrue (strTag = tag.ID)
 
 TestExit:
     Exit Sub
@@ -66,7 +66,7 @@ Public Sub TestGetLetTagDescription()
     'Act:
     tag.Description = strTagDesc
     'Assert:
-    Assert.isTrue ("TEST-TAG-DESC" = tag.Description)
+    Assert.istrue ("TEST-TAG-DESC" = tag.Description)
 
 TestExit:
     Exit Sub
@@ -90,7 +90,7 @@ Public Sub TestGetTagIDFromCell()
     tag.ID = ws.Cells(2, 1).Value
     Debug.Print tag.ID
     'Assert:
-    Assert.isTrue (tag.ID = "AB12345A")
+    Assert.istrue (tag.ID = "AB12345A")
 
 TestExit:
     Exit Sub
@@ -112,7 +112,7 @@ Public Sub TestGetTagDescFromCell()
     tag.ID = ws.Cells(2, 2).Value
     Debug.Print tag.ID
     'Assert:
-    Assert.isTrue (tag.ID = "A TAG FOR TESTING")
+    Assert.istrue (tag.ID = "A TAG FOR TESTING")
 
 TestExit:
     Exit Sub
@@ -148,7 +148,7 @@ Public Sub TestGetTagFromTable()
     Next x
 
     'Assert:
-    Assert.isTrue (tbl.Name = "TagMinimal")
+    Assert.istrue (tbl.Name = "TagMinimal")
 
 TestExit:
     Exit Sub
@@ -188,9 +188,9 @@ Public Sub TestReadTableCreateTags()
     Next x
     'Assert:
     Debug.Print x, UBound(tagArray), LBound(tagArray)
-    Assert.isTrue (tag.ID = "E-K-2421")
-    Assert.isTrue (x = 3)  'NB - runs over end of table...
-    Assert.isTrue (UBound(tagArray) - LBound(tagArray) + 1 = 2) 'Appears to default to 1 indexing
+    Assert.istrue (tag.ID = "E-K-2421")
+    Assert.istrue (x = 3)  'NB - runs over end of table...
+    Assert.istrue (UBound(tagArray) - LBound(tagArray) + 1 = 2) 'Appears to default to 1 indexing
 
 TestExit:
     Exit Sub
@@ -213,11 +213,11 @@ Public Sub TestLoadTagsFromTable()
     tags.LoadTable tbl
     Debug.Print tags.Item(1).ID
     'Assert:
-    Assert.isTrue (tags.Item(1).ID = "E-VG-29-069")
-    Assert.isTrue (tags.Item(2).FailureCode = "FA_PEVB")
-    Assert.isTrue tags.Item(5).isSIS
+    Assert.istrue (tags.Item(1).ID = "E-VG-29-069")
+    Assert.istrue (tags.Item(2).FailureCode = "FA_PEVB")
+    Assert.istrue tags.Item(5).isSIS
     Assert.isFalse tags.Item(5).isSIL
-    Assert.isTrue tags.Item(6).isSIL
+    Assert.istrue tags.Item(6).isSIL
     
 TestExit:
     Exit Sub
@@ -240,7 +240,7 @@ Public Sub TestTagRisks()
     tag.RiskImpact(Environment) = "D"
     tag.RiskLikelihood(Environment) = "5"
     'Assert:
-    Assert.isTrue ("TEST-TAG-DESC" = tag.Description)
+    Assert.istrue ("TEST-TAG-DESC" = tag.Description)
     Assert.AreEqual "D5", tag.Risks(Environment)
     
 
@@ -269,7 +269,7 @@ Public Sub TestWriteTagToWorksheet()
     tag.WriteToWorksheet StartCell
     
     'Assert:
-    Assert.isTrue (ws.Range("B2").Value = "TEST-TAG")
+    Assert.istrue (ws.Range("B2").Value = "TEST-TAG")
 
 TestExit:
     Exit Sub
@@ -296,7 +296,7 @@ Public Sub TestCriticalityByFailureCode() 'TODO Rename test
     tag.SetDefaultCriticalityByFailureCode
     
     'Assert:
-    Assert.isTrue (tag.Criticality = "A")
+    Assert.istrue (tag.Criticality = "A")
 
 TestExit:
     Exit Sub

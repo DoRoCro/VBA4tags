@@ -43,7 +43,7 @@ Public Sub TestSystemHasID()
     Set tstSystem = New clsSystem
     tstSystem.SystemID = 24        'Flash_Gas_Compression
     'Assert:
-    Assert.isTrue (tstSystem.SystemID = 24)
+    Assert.istrue (tstSystem.SystemID = 24)
 
 TestExit:
     Exit Sub
@@ -67,10 +67,10 @@ Public Sub TestSystemHasDescriptionAndUtilityTest()
         tstSystem.SystemNumber = "24"
     End With
     'Assert:
-    Assert.isTrue (tstSystem.Description = "Flash Gas Compression")
+    Assert.istrue (tstSystem.Description = "Flash Gas Compression")
     'Assert.isTrue (tstSystem.FluidType = "Hydrocarbons")
-    Assert.isTrue (tstSystem.isUtility = False)
-    Assert.isTrue (tstSystem.SystemNumber = "24")
+    Assert.istrue (tstSystem.isUtility = False)
+    Assert.istrue (tstSystem.SystemNumber = "24")
 TestExit:
     Exit Sub
 TestFail:
@@ -111,10 +111,10 @@ Public Sub TestLoadSystemsFromTable()
     Systems.LoadTable tbl
     Debug.Print Systems.Item(1).SystemID
     'Assert:
-    Assert.isTrue (Systems.Item(1).SystemID = "E-SYSTEM-00")
-    Assert.isTrue (Systems.Item(100).SystemID = "E-SYSTEM-99")
-    Assert.isTrue (Systems.Item(101).SystemID = "R-SYSTEM-00")
-    Assert.isTrue (Systems.Item(200).SystemID = "R-SYSTEM-99")
+    Assert.istrue (Systems.Item(1).SystemID = "E-SYSTEM-00")
+    Assert.istrue (Systems.Item(100).SystemID = "E-SYSTEM-99")
+    Assert.istrue (Systems.Item(101).SystemID = "R-SYSTEM-00")
+    Assert.istrue (Systems.Item(200).SystemID = "R-SYSTEM-99")
 TestExit:
     Exit Sub
 TestFail:
@@ -137,7 +137,7 @@ Public Sub TestSystemsContains() 'TODO Rename test
     
     'Assert:
     Assert.isFalse Systems.Contains("N/A")
-    Assert.isTrue Systems.Contains("24")
+    Assert.istrue Systems.Contains("24")
 
 TestExit:
     Exit Sub
