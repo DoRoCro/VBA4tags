@@ -59,7 +59,7 @@ Public Sub TestCalculateCriticalityGetsRightWorksheet()
     'Assert
     'Assert.istrue (ws.Name = "FA_CFBC")
     'Assert.inconclusive
-    Assert.istrue ("A" = tag.Criticality)
+    Assert.Istrue ("A" = tag.Criticality)
 
 TestExit:
     Exit Sub

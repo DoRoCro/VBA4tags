@@ -79,7 +79,7 @@ Public Sub TestMAHAddtoList()
     'Act:
     MAHlist.Add MAH
     'Assert:
-    Assert.istrue (MAHlist.Item(1).ID = "FA_CFBC")
+    Assert.Istrue (MAHlist.Item(1).ID = "FA_CFBC")
     
 TestExit:
     Exit Sub
@@ -110,9 +110,9 @@ Public Sub TestLoadMAHDefaults()
 
 
     'Assert:
-    Assert.istrue (MAHlist.Item(1).ID = "FA_CFBC")    'based on initial dataset
-    Assert.istrue (MAHlist.Item(2).Family = "#N/A")   'cope with error cells as test
-    Assert.istrue (MAHlist.Item(2).TypCriticality = "#")   'stores only first character in cell
+    Assert.Istrue (MAHlist.Item(1).ID = "FA_CFBC")    'based on initial dataset
+    Assert.Istrue (MAHlist.Item(2).Family = "#N/A")   'cope with error cells as test
+    Assert.Istrue (MAHlist.Item(2).TypCriticality = "#")   'stores only first character in cell
     
 TestExit:
     Exit Sub
@@ -143,7 +143,7 @@ Public Sub TestMAHFindByFailureCode()
     
 
     'Assert:
-    Assert.istrue (MAHlist.FindByID("FA_CFBC").ID = "FA_CFBC")
+    Assert.Istrue (MAHlist.FindByID("FA_CFBC").ID = "FA_CFBC")
     
 TestExit:
     Exit Sub

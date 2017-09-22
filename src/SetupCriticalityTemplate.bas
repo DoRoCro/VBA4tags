@@ -1,7 +1,7 @@
 Attribute VB_Name = "SetupCriticalityTemplate"
 Option Explicit
 
-Const wbCriticality As String = "WND Criticality Template.xlsx"
+'Const wbCriticality As String = "WND Criticality Template.xlsx"
 
 Sub CreateWorksheetsFromFailureCodeList()
     Dim wb As Workbook
@@ -15,7 +15,7 @@ Sub CreateWorksheetsFromFailureCodeList()
     Dim rowsWithTagsCount As Integer
     Dim fcdcTbl As ListObject    'Failure code default criticalities table
     
-    Set wb = Workbooks(wbCriticality)
+    Set wb = Workbooks(CriticalityWbName)
     Set ws = wb.Worksheets("FailureCodes")
     Set templateWs = wb.Worksheets("FailureCodeTemplate")
     Set tbl = ws.ListObjects("ASSET_C_FailureCodesList")
@@ -92,7 +92,7 @@ Sub CopyDefaultCriticalitiesIntoTemplateWorksheet(codeRow As ListRow, _
     Dim codeStr As String
     Dim defaultsRow As ListRow
     
-    Set wb = Workbooks(wbCriticality)
+    Set wb = Workbooks(CriticalityWbName)
     
     codeStr = rowCell(codeRow, "FailureCode").Value
     Set defaultsRow = getRow(fcdcTbl, "FailureCode", codeStr)
@@ -139,7 +139,7 @@ Function getDefaultMAHBarrierForFailureCode(codeStr As String, Optional field As
     Dim MAHws As Worksheet
     Dim MAHtbl As ListObject
     Dim MAHrow As ListRow
-    Set wb = Workbooks(wbCriticality)
+    Set wb = Workbooks(CriticalityWbName)
     Set MAHws = wb.Worksheets("MAHBarrierSetup")
     Set MAHtbl = MAHws.ListObjects("MAHBarrierForFailureCode")
     ' find row in table based on failure code

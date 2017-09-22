@@ -21,6 +21,7 @@ Public Sub ModuleInitialize()
     Set ws = wb.Worksheets("TestFailurecodeTemplate")
     ws.Range("B1").Formula = "FA_TESTING"
     ws.Range("B2").Formula = "Unit testing Logic..."
+    CriticalityWbName = ThisWorkbook.Name
 End Sub
 
 '@ModuleCleanup
@@ -98,8 +99,8 @@ Public Sub TestInitialStateGivesC()
     'Act:
 
     'Assert:
-    Assert.istrue (ws.Range("K1") = "C")
-    Assert.istrue (ws.Range("G6").Value = "NO") ' not SCE
+    Assert.Istrue (ws.Range("K1") = "C")
+    Assert.Istrue (ws.Range("G6").Value = "NO") ' not SCE
 
 TestExit:
     Exit Sub
@@ -116,8 +117,8 @@ Public Sub TestSafetyA1GivesCAndSCE()
     'Act:
     ws.Range("B16").Formula = "A"
     'Assert:
-    Assert.istrue (ws.Range("K1") = "C")
-    Assert.istrue (ws.Range("G6").Value = "YES")   ' is SCE
+    Assert.Istrue (ws.Range("K1") = "C")
+    Assert.Istrue (ws.Range("G6").Value = "YES")   ' is SCE
 TestExit:
     Exit Sub
 TestFail:
@@ -135,13 +136,78 @@ Public Sub TestSafetyA7GivesCAndSCE()
     ws.Range("C16").Formula = "7"
     
     'Assert:
-    Assert.istrue (ws.Range("K1") = "C")        ' no rule explicitly sets high criticality from safety impact, but expect MAH override in practice
-    Assert.istrue (ws.Range("G6").Value = "YES")   ' is SCE
-    Assert.istrue (ws.Range("G8").Value = 10)   ' CMMS Location priority
+    Assert.Istrue (ws.Range("K1") = "C")        ' no rule explicitly sets high criticality from safety impact, but expect MAH override in practice
+    Assert.Istrue (ws.Range("G6").Value = "YES")   ' is SCE
+    Assert.Istrue (ws.Range("G8").Value = 10)   ' CMMS Location priority
     
 TestExit:
     Exit Sub
 TestFail:
     Assert.Fail "Test raised an error: #" & err.Number & " - " & err.Description
 End Sub
+
+
+'@TestMethod
+Public Sub TestSetupForProcess()
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Dim fcode As clsFailureCode
+    Dim fcodes As clsFailureCodes
+    Set fcode = New clsFailureCode
+    Set fcodes = New clsFailureCodes
+    Dim MAH As clsMAHDefault
+    Dim MAHlist As clsMAHlist
+    Set MAH = New clsMAHDefault
+    Set MAHlist = New clsMAHlist
+    
+    fcode.Description = "Test Code"
+    fcode.ID = "TestFailureCodeTemplate"
+    fcodes.Add fcode
+    MAH.ID = "TestFailureCodeTemplate"
+    MAH.Comment = "Test Comment"
+    MAH.Family = "Test Family"
+    MAH.Component = "Test Component gives #N/A lookup result so should give #N/A in K17"
+    MAHlist.Add MAH
+    
+    'Act:
+    fcodes.SetupForSystemGroup MAHlist
+    
+    'Assert:
+    Assert.Istrue (ws.Range("H17").Text = "Test Family")
+    Assert.Istrue (ws.Range("K17").Text = "#N/A")
+    Assert.Istrue (ws.Range("I19").Text = "Test Comment")
+    Assert.Istrue (ws.Range("K1").Text = "C")
+
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & err.Number & " - " & err.Description
+End Sub
+'@TestMethod
+Public Sub TestCriticalityByFailureCode()
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Dim tag As New clsTag
+    Dim ws As Worksheet
+    Dim StartCell As Range
+    Set tag = New clsTag
+    Set ws = ThisWorkbook.Worksheets("TestFailureCodeTemplate")
+    tag.ID = "TEST-TAG"
+    tag.FailureCode = "TestFailureCodeTemplate"
+    tag.Criticality = "x"
+    
+    'Act:
+    tag.SetDefaultCriticalityByFailureCode
+    
+    'Assert:
+    Assert.Istrue (tag.Criticality = "C")
+
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & err.Number & " - " & err.Description
+End Sub
+
 

@@ -52,5 +52,24 @@ End Function
 '    Next
 'End Sub
 
-
+Public Sub SetupForSystemGroup(MAHlist As clsMAHlist)
+    Dim fcode As clsFailureCode
+    Dim ws As Worksheet
+    Dim MAH As clsMAHDefault
+    
+    For Each fcode In Me.All
+        'TODO may need a check for MAHlist contains fcode or N/A entries, but FailureCodes and calc sheet names should align, but not guaranteed
+        'TODO should refactor sheet generation into clsFailureCode
+        
+        'select ws from failure code ID
+        Set ws = Workbooks(CriticalityWbName).Worksheets(fcode.ID)
+        Set MAH = MAHlist.FindByID(fcode.ID)
+        
+        'update cells in ws based on MAHList entries
+        ws.Range("H17").Formula = MAH.Family
+        ws.Range("I17").Formula = MAH.Component
+        ws.Range("I19").Formula = MAH.Comment
+        
+    Next fcode
+End Sub
 

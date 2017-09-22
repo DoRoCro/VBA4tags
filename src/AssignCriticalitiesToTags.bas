@@ -25,8 +25,14 @@ Private FailureCodes As clsFailureCodes
 
 
 Sub AssignCriticalities()
-    CriticalityWbName = "WND Criticality Template.xlsx"
     Dim tag As clsTag
+    Dim disciplineTags As clsTags
+    Dim discWs As Worksheet
+    Dim Discipline As clsDiscipline
+    Dim counter As Long
+    
+    CriticalityWbName = "WND Criticality Template.xlsx"
+    
     Set tags = New clsTags
     Set Systems = New clsSystems
     Set disciplines = New clsDisciplines
@@ -35,27 +41,32 @@ Sub AssignCriticalities()
     Debug.Print "Tags count ="; tags.Count
     Debug.Print "Systems count ="; Systems.Count
     Debug.Print "Disciplines count ="; disciplines.Count
-
+    Debug.Print "Systems count ="; Systems.Count
+    Debug.Print "Failurecodes count ="; FailureCodes.Count
+    Debug.Print "MAHprocess count ="; MAHprocess.Count
+    Debug.Print "MAHutility count ="; MAHutility.Count
+    
+    'filter out unwanted tags by STATUS code
     Set tags = tags.RemoveStatus("DEL")
     Set tags = tags.RemoveStatus("SOFT")
     Set tags = tags.RemoveStatus(vbNullString)
     Set tags = tags.RemoveStatus("DRAFT")
     
     
-    Dim disciplineTags As clsTags
+    
     Set disciplineTags = New clsTags
-    Dim discWs As Worksheet
-    Dim Discipline As clsDiscipline
-    Dim counter As Long
     counter = 0
     For Each Discipline In disciplines.All
         Set disciplineTags = tags.byDiscipline(Discipline)
-        Excel.Application.ScreenUpdating = False
+        'Excel.Application.ScreenUpdating = False
         'setup for process tags
+        FailureCodes.SetupForSystemGroup MAHprocess
         
         'assign process tags
         disciplineTags.ProcessTags(Systems).AssignDefaultCriticalities
+        
         'setup for utility tags
+        FailureCodes.SetupForSystemGroup MAHutility
         
         'assign utility tags
         disciplineTags.UtilityTags(Systems).AssignDefaultCriticalities
@@ -63,7 +74,7 @@ Sub AssignCriticalities()
         'deal with nosystem tags, as utility for now
         disciplineTags.NoSystemTags(Systems).AssignDefaultCriticalities
 
-        Excel.Application.ScreenUpdating = True
+        'Excel.Application.ScreenUpdating = True
         Debug.Print "Default criticalities assigned for ", Discipline.ID
         
         Set discWs = Discipline.CreateDisciplineOutputSheet(ThisWorkbook.Sheets)

@@ -61,9 +61,9 @@ Public Sub TestDisciplineLoadsFromTable()
     Next x
     Debug.Print disciplines(2).ID
     'Assert:
-    Assert.istrue (tbl.Name = "DisciplinesList")
-    Assert.istrue (disciplines(2).ID = "ELEC")
-    Assert.istrue (disciplines(6).ID = "MECH")
+    Assert.Istrue (tbl.Name = "DisciplinesList")
+    Assert.Istrue (disciplines(2).ID = "ELEC")
+    Assert.Istrue (disciplines(6).ID = "MECH")
 
 TestExit:
     Exit Sub
@@ -95,9 +95,9 @@ Public Sub TestDisciplinesClassLoads()
 
     Debug.Print disciplines.Item(2).ID
     'Assert:
-    Assert.istrue (tbl.Name = "DisciplinesList")
-    Assert.istrue (disciplines.Item(2).ID = "ELEC")
-    Assert.istrue (disciplines.Item(6).ID = "MECH")
+    Assert.Istrue (tbl.Name = "DisciplinesList")
+    Assert.Istrue (disciplines.Item(2).ID = "ELEC")
+    Assert.Istrue (disciplines.Item(6).ID = "MECH")
 
 TestExit:
     Exit Sub
@@ -117,7 +117,7 @@ Public Sub TestCreateOutputSheet()
     'Act:
     Set ws = Discipline.CreateDisciplineOutputSheet(ThisWorkbook.Sheets)
     'Assert:
-    Assert.istrue (ws.Name = Discipline.ID)
+    Assert.Istrue (ws.Name = Discipline.ID)
 
 TestExit:
     Exit Sub
@@ -138,7 +138,7 @@ Public Sub TestCreateOutputSheetsAllDisciplines()
     'Act:
     disciplines.createOutputSheetsByDiscipline
     'Assert:
-    Assert.istrue (ThisWorkbook.Worksheets(Sheets.Count).Name = "TELE")
+    Assert.Istrue (ThisWorkbook.Worksheets(Sheets.Count).Name = "TELE")
 
 TestExit:
     Exit Sub

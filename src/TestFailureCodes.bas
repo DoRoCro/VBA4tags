@@ -44,7 +44,7 @@ Public Sub TestFailureCodeProperties()
     fcode.ID = "FA_TEST"
     Set fcode.OutputSheet = ThisWorkbook.Worksheets("Output")
     'Assert:
-    Assert.istrue (fcode.ID = "FA_TEST")
+    Assert.Istrue (fcode.ID = "FA_TEST")
 
 TestExit:
     Exit Sub
@@ -67,7 +67,7 @@ Public Sub TestFailureCodesAdd()
     fcode.ID = "FA_TEST"
     Set fcode.OutputSheet = ThisWorkbook.Worksheets("Output")
     'Assert:
-    Assert.istrue (fcode.ID = "FA_TEST")
+    Assert.Istrue (fcode.ID = "FA_TEST")
 
 TestExit:
     Exit Sub
@@ -89,7 +89,7 @@ Public Sub TestFailureCodesLoad()
     'Act:
     fcodes.LoadTable tbl
     'Assert:
-    Assert.istrue (fcodes.Item(2).ID = "FA_CFSGA")
+    Assert.Istrue (fcodes.Item(2).ID = "FA_CFSGA")
 
 TestExit:
     Exit Sub
