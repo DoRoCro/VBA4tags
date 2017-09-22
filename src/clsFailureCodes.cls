@@ -58,7 +58,7 @@ Public Sub SetupForSystemGroup(MAHlist As clsMAHlist)
     Dim MAH As clsMAHDefault
     
     For Each fcode In Me.All
-        Debug.Print fcode.ID
+        'Debug.Print fcode.ID
         'TODO may need a check for MAHlist contains fcode or N/A entries, but FailureCodes and calc sheet names should align, but not guaranteed
         'TODO should refactor sheet generation into clsFailureCode
         

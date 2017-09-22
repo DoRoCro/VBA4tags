@@ -75,7 +75,7 @@ Sub AssignCriticalities()
         disciplineTags.NoSystemTags(Systems).AssignDefaultCriticalities
 
         'Excel.Application.ScreenUpdating = True
-        Debug.Print "Default criticalities assigned for ", Discipline.ID
+        Debug.Print "Default criticalities assigned for "; Discipline.ID; disciplineTags.Count
         
         Set discWs = Discipline.CreateDisciplineOutputSheet(ThisWorkbook.Sheets)
         disciplineTags.OutputTagListings discWs.Range("A1")
