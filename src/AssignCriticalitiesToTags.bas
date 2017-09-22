@@ -29,7 +29,6 @@ Sub AssignCriticalities()
     Dim disciplineTags As clsTags
     Dim discWs As Worksheet
     Dim Discipline As clsDiscipline
-    Dim counter As Long
     
     CriticalityWbName = "WND Criticality Template.xlsx"
     Application.DisplayStatusBar = True
@@ -54,12 +53,10 @@ Sub AssignCriticalities()
     Set tags = tags.RemoveStatus(vbNullString)
     Set tags = tags.RemoveStatus("DRAFT")
     
-    
-    
     Set disciplineTags = New clsTags
-    counter = 0
+
     For Each Discipline In disciplines.All
-        Application.StatusBar = "Processing " & Discpline.ID & " tags..."
+        Application.StatusBar = "Processing " & Discipline.ID & " tags..."
 
         Set disciplineTags = tags.byDiscipline(Discipline)
         'Excel.Application.ScreenUpdating = False
