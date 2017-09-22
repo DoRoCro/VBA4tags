@@ -139,7 +139,7 @@ Public Function ProcessTags(Systems As clsSystems) As clsTags
     Set TagsProcess = New clsTags
     For Each tag In Me.All
         If Systems.Contains(tag.SystemID) Then
-            If Systems.FindByNumber(tag.SystemID).isUtility Then TagsProcess.Add tag
+            If Not Systems.FindByNumber(tag.SystemID).isUtility Then TagsProcess.Add tag
         End If
     Next tag
     Set ProcessTags = TagsProcess
@@ -150,7 +150,7 @@ Public Function UtilityTags(Systems As clsSystems) As clsTags
     Set TagsUtility = New clsTags
     For Each tag In Me.All
         If Systems.Contains(tag.SystemID) Then
-            If Not Systems.FindByNumber(tag.SystemID).isUtility Then TagsUtility.Add tag
+            If Systems.FindByNumber(tag.SystemID).isUtility Then TagsUtility.Add tag
         End If
     Next tag
     Set UtilityTags = TagsUtility
