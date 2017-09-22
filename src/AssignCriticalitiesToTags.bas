@@ -32,7 +32,8 @@ Sub AssignCriticalities()
     Dim counter As Long
     
     CriticalityWbName = "WND Criticality Template.xlsx"
-    
+    Application.DisplayStatusBar = True
+    Application.StatusBar = "Loading from tables..."
     Set tags = New clsTags
     Set Systems = New clsSystems
     Set disciplines = New clsDisciplines
@@ -47,6 +48,7 @@ Sub AssignCriticalities()
     Debug.Print "MAHutility count ="; MAHutility.Count
     
     'filter out unwanted tags by STATUS code
+    Application.StatusBar = "Filtering unused tags..."
     Set tags = tags.RemoveStatus("DEL")
     Set tags = tags.RemoveStatus("SOFT")
     Set tags = tags.RemoveStatus(vbNullString)
@@ -57,6 +59,8 @@ Sub AssignCriticalities()
     Set disciplineTags = New clsTags
     counter = 0
     For Each Discipline In disciplines.All
+        Application.StatusBar = "Processing " & Discpline.ID & " tags..."
+
         Set disciplineTags = tags.byDiscipline(Discipline)
         'Excel.Application.ScreenUpdating = False
         'setup for process tags
@@ -77,6 +81,8 @@ Sub AssignCriticalities()
         'Excel.Application.ScreenUpdating = True
         Debug.Print "Default criticalities assigned for "; Discipline.ID; disciplineTags.Count
         
+        Application.StatusBar = "Writing out " & Discpline.ID & " tags..."
+       
         Set discWs = Discipline.CreateDisciplineOutputSheet(ThisWorkbook.Sheets)
         disciplineTags.OutputTagListings discWs.Range("A1")
     Next Discipline
