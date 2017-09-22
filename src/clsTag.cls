@@ -181,11 +181,6 @@ Sub SetDefaultCriticalityByFailureCode()
         Case Else
             Set ws = wb.Worksheets(Me.FailureCode)
             Set MAHCell = ws.Range("I17")
-'            resetComponent = MAHCell.Text
-'            resetComment = ws.Range("I19").Text
-'            If MAH.Count > 0 Then                              'TODO think how to refactor this or change parameters to function
-'                MAHCell.Value = MAH.FindByID(tag.FailureCode).Component
-'            End If
             Me.Criticality = ws.Range("K1")
             Me.RiskImpact(Safety) = ws.Range("B9")
             Me.RiskImpact(Environment) = ws.Range("B10")
@@ -199,11 +194,6 @@ Sub SetDefaultCriticalityByFailureCode()
                                 "MAH comment: " & ws.Range("I19").Text & "; " & _
                                 "IPL/LOPA = " & ws.Range("J35").Text & _
                                 "; Regulatory override = " & ws.Range("I37").Text
-'            MAHCell.Value = resetComponent
-'            ws.Range("i19") = resetComment
     End Select
-        'End If
-    'ws.Activate
-    
 End Sub
 

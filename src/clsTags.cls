@@ -100,17 +100,11 @@ Sub OutputTagListings(StartCell As Range)
     counter = 1
     Application.ScreenUpdating = False
     Application.Calculation = xlCalculationManual
-    Me.Item(1).FillTagHeaders StartCell      'dummy tag use to use class method
+    Me.Item(1).FillTagHeaders StartCell      'dummy use of a tag use to use class method
     For Each tag In pContent
         tag.WriteToWorksheet StartCell.Offset(counter, 0)
-'        With tag
-'            outputArray(counter, 1) = .ID
-'            outputArray(counter, 2) = .Description
-'        End With
         counter = counter + 1
-        
     Next
-'    StartCell = outputArray
     Application.ScreenUpdating = True
     Application.Calculation = xlCalculationAutomatic
 End Sub
