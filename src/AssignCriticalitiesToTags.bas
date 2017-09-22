@@ -12,8 +12,8 @@ Const SystemsSheetName = "SystemsUtilities"
 Const SystemsTableName = "SystemsList"
 Const MAHSheetName = "MAHBarrierSetup"
 Const MAHTableName = "MAHBarrierForFailureCode"
-Const FailureCodesSheetName = "FailureCodeDefaultCriticality"
-Const FailureCodesTableName = "FailureCodeDefaultCriticalities_Table"
+Const FailureCodesSheetName = "FailureCodes"
+Const FailureCodesTableName = "ASSET_C_FailureCodesList"
 
 Public CriticalityWbName As String
 Private tags As clsTags

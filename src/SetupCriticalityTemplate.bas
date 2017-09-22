@@ -15,6 +15,7 @@ Sub CreateWorksheetsFromFailureCodeList()
     Dim rowsWithTagsCount As Integer
     Dim fcdcTbl As ListObject    'Failure code default criticalities table
     
+    CriticalityWbName = "WND Criticality Template.xlsx"
     Set wb = Workbooks(CriticalityWbName)
     Set ws = wb.Worksheets("FailureCodes")
     Set templateWs = wb.Worksheets("FailureCodeTemplate")
