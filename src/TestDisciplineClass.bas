@@ -37,7 +37,7 @@ Public Sub TestDisciplineLoadsFromTable()
     On Error GoTo TestFail
     
 
-    Dim disciplines As Collection
+    Dim Disciplines As Collection
     Dim Discipline As clsDiscipline
     Dim wb As Workbook
     Dim ws As Worksheet
@@ -48,7 +48,7 @@ Public Sub TestDisciplineLoadsFromTable()
     'Act:
     Set wb = ThisWorkbook
     Set ws = wb.Worksheets("TestDisciplines")
-    Set disciplines = New Collection
+    Set Disciplines = New Collection
     Set tbl = ws.ListObjects("DisciplinesList")
     Debug.Print tbl.Name
     
@@ -56,14 +56,14 @@ Public Sub TestDisciplineLoadsFromTable()
     For x = 2 To tbl.Range.Rows.Count
         Set Discipline = New clsDiscipline
         Discipline.ID = tbl.Range.Rows(x).Columns(1)
-        disciplines.Add Discipline
+        Disciplines.Add Discipline
         Debug.Print Discipline.ID
     Next x
-    Debug.Print disciplines(2).ID
+    Debug.Print Disciplines(2).ID
     'Assert:
     Assert.Istrue (tbl.Name = "DisciplinesList")
-    Assert.Istrue (disciplines(2).ID = "ELEC")
-    Assert.Istrue (disciplines(6).ID = "MECH")
+    Assert.Istrue (Disciplines(2).ID = "ELEC")
+    Assert.Istrue (Disciplines(6).ID = "MECH")
 
 TestExit:
     Exit Sub
@@ -75,7 +75,7 @@ End Sub
 Public Sub TestDisciplinesClassLoads()
     On Error GoTo TestFail
     
-    Dim disciplines As clsDisciplines
+    Dim Disciplines As clsDisciplines
     Dim Discipline As clsDiscipline
     Dim wb As Workbook
     Dim ws As Worksheet
@@ -86,18 +86,18 @@ Public Sub TestDisciplinesClassLoads()
     'Act:
     Set wb = ThisWorkbook
     Set ws = wb.Worksheets("TestDisciplines")
-    Set disciplines = New clsDisciplines
+    Set Disciplines = New clsDisciplines
     Set tbl = ws.ListObjects("DisciplinesList")
     Debug.Print tbl.Name
     
     'load as a table
-    disciplines.LoadTable tbl
+    Disciplines.LoadTable tbl
 
-    Debug.Print disciplines.Item(2).ID
+    Debug.Print Disciplines.Item(2).ID
     'Assert:
     Assert.Istrue (tbl.Name = "DisciplinesList")
-    Assert.Istrue (disciplines.Item(2).ID = "ELEC")
-    Assert.Istrue (disciplines.Item(6).ID = "MECH")
+    Assert.Istrue (Disciplines.Item(2).ID = "ELEC")
+    Assert.Istrue (Disciplines.Item(6).ID = "MECH")
 
 TestExit:
     Exit Sub
@@ -130,13 +130,13 @@ Public Sub TestCreateOutputSheetsAllDisciplines()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim disciplines As clsDisciplines
+    Dim Disciplines As clsDisciplines
     Dim ws As Worksheet
-    Set disciplines = New clsDisciplines
-    disciplines.LoadTable ThisWorkbook.Worksheets("TestDisciplines").ListObjects("DisciplinesList")
+    Set Disciplines = New clsDisciplines
+    Disciplines.LoadTable ThisWorkbook.Worksheets("TestDisciplines").ListObjects("DisciplinesList")
     
     'Act:
-    disciplines.createOutputSheetsByDiscipline
+    Disciplines.createOutputSheetsByDiscipline
     'Assert:
     Assert.Istrue (ThisWorkbook.Worksheets(Sheets.Count).Name = "TELE")
 

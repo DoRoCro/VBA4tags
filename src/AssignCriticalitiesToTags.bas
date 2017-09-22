@@ -17,7 +17,7 @@ Const FailureCodesTableName = "ASSET_C_FailureCodesList"
 
 Public CriticalityWbName As String
 Private tags As clsTags
-Private disciplines As clsDisciplines
+Private Disciplines As clsDisciplines
 Private Systems As clsSystems
 Private MAHprocess As clsMAHlist
 Private MAHutility As clsMAHlist
@@ -35,12 +35,12 @@ Sub AssignCriticalities()
     Application.StatusBar = "Loading from tables..."
     Set tags = New clsTags
     Set Systems = New clsSystems
-    Set disciplines = New clsDisciplines
+    Set Disciplines = New clsDisciplines
     Set FailureCodes = New clsFailureCodes
-    Call LoadTables(tags, Systems, disciplines)
+    Call LoadTables(tags, Systems, Disciplines)
     Debug.Print "Tags count ="; tags.Count
     Debug.Print "Systems count ="; Systems.Count
-    Debug.Print "Disciplines count ="; disciplines.Count
+    Debug.Print "Disciplines count ="; Disciplines.Count
     Debug.Print "Systems count ="; Systems.Count
     Debug.Print "Failurecodes count ="; FailureCodes.Count
     Debug.Print "MAHprocess count ="; MAHprocess.Count
@@ -55,7 +55,7 @@ Sub AssignCriticalities()
     
     Set disciplineTags = New clsTags
 
-    For Each Discipline In disciplines.All
+    For Each Discipline In Disciplines.All
         Application.StatusBar = "Processing " & Discipline.ID & " tags..."
 
         Set disciplineTags = tags.byDiscipline(Discipline)
@@ -78,7 +78,7 @@ Sub AssignCriticalities()
         'Excel.Application.ScreenUpdating = True
         Debug.Print "Default criticalities assigned for "; Discipline.ID; disciplineTags.Count
         
-        Application.StatusBar = "Writing out " & Discpline.ID & " tags..."
+        Application.StatusBar = "Writing out " & Discipline.ID & " tags..."
        
         Set discWs = Discipline.CreateDisciplineOutputSheet(ThisWorkbook.Sheets)
         disciplineTags.OutputTagListings discWs.Range("A1")
@@ -86,7 +86,7 @@ Sub AssignCriticalities()
 End Sub
 
 
-Sub LoadTables(tags As clsTags, Systems As clsSystems, Discplines As clsDisciplines)
+Sub LoadTables(tags As clsTags, Systems As clsSystems, Disciplines As clsDisciplines)
     Dim wb As Workbook
     Dim ws As Worksheet
     Dim tbl As ListObject
@@ -104,9 +104,9 @@ Sub LoadTables(tags As clsTags, Systems As clsSystems, Discplines As clsDiscipli
 'Read in disciplines
     Set ws = wb.Worksheets(DisciplinesSheetName)
     Set tbl = ws.ListObjects(DisciplinesTableName)
-    Set disciplines = New clsDisciplines
-    disciplines.LoadTable tbl
-    Debug.Print "finished loading disciplines, count ="; disciplines.Count
+    Set Disciplines = New clsDisciplines
+    Disciplines.LoadTable tbl
+    Debug.Print "finished loading disciplines, count ="; Disciplines.Count
 
 'Read in systems
     Set ws = wb.Worksheets(SystemsSheetName)
