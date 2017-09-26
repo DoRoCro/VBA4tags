@@ -40,7 +40,7 @@ Public Sub LoadTableProcess(table As ListObject)
         With MAHDefault
             .ID = row.Range(1, 1).Text
             .FamilyID = row.Range(1, 4).Text
-            .Family = row.Range(1, 4).Text          'to cope with #N/A entries
+            .Family = row.Range(1, 5).Text          'to cope with #N/A entries
             .Component = row.Range(1, 6).Text
             .TypCriticality = row.Range(1, 7).Text
             .Comment = row.Range(1, 8).Text

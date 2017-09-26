@@ -146,6 +146,7 @@ Public Sub WriteToWorksheet(StartCell As Range)
         StartCell.Offset(0, 13).Formula = .Risks(Production)
         StartCell.Offset(0, 14).Formula = .Risks(Business)
         StartCell.Offset(0, 15).Formula = .Justification
+        StartCell.Offset(0, 16).Formula = .Criticality
     End With
 End Sub
 Public Sub FillTagHeaders(StartCell As Range)
@@ -159,7 +160,7 @@ Public Sub FillTagHeaders(StartCell As Range)
     StartCell.Offset(0, 7).Formula = "isSIS"
     StartCell.Offset(0, 8).Formula = "discipline"
     StartCell.Offset(0, 9).Formula = "SystemID"
-    StartCell.Offset(0, 10).Formula = "Criticality"
+    StartCell.Offset(0, 10).Formula = "Initial Criticality"
     StartCell.Offset(0, 11).Formula = "Risks(Safety)"
     StartCell.Offset(0, 12).Formula = "Risks(Environment)"
     StartCell.Offset(0, 13).Formula = "Risks(Production)"
@@ -167,7 +168,7 @@ Public Sub FillTagHeaders(StartCell As Range)
     StartCell.Offset(0, 15).Formula = "Justification"
     StartCell.Offset(0, 14).Formula = "Risks(Business)"
     
-    StartCell.Offset(0, 16).Formula = "Criticality Post Review"
+    StartCell.Offset(0, 16).Formula = "Criticality to allocate"
     StartCell.Offset(0, 17).Formula = "Reason for change"
     
 End Sub
