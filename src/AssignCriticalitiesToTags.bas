@@ -81,7 +81,15 @@ Sub AssignCriticalities()
         Application.StatusBar = "Writing out " & Discipline.ID & " tags..."
        
         Set discWs = Discipline.CreateDisciplineOutputSheet(ThisWorkbook.Sheets)
-        disciplineTags.OutputTagListings discWs.Range("A1")
+        discWs.Range("J1").Formula = "Count A ="
+        discWs.Range("J2").Formula = "Count B ="
+        discWs.Range("J3").Formula = "Count C ="
+        discWs.Range("K1").Formula = "=COUNTIF(K6:K12000,""A"")"
+        discWs.Range("K2").Formula = "=COUNTIF(K6:K12000,""B"")"
+        discWs.Range("K3").Formula = "=COUNTIF(K6:K12000,""C"")"
+        
+        
+        disciplineTags.OutputTagListings discWs.Range("A5")
     Next Discipline
     Application.StatusBar = ""
 End Sub

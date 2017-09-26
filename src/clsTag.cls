@@ -194,7 +194,7 @@ Sub SetDefaultCriticalityByFailureCode()
             Me.RiskLikelihood(Environment) = ws.Range("C10")
             Me.RiskLikelihood(Production) = ws.Range("C11")
             Me.RiskLikelihood(Business) = ws.Range("C12")
-            Me.Justification = "MAH Barrier: " & ws.Range("I17").Text & "; " & _
+            Me.Justification = "MAH Barrier: " & ws.Range("H17").Text & "; " & _
                                 "MAH comment: " & ws.Range("I19").Text & "; " & _
                                 "; Regulatory override = " & ws.Range("I37").Text
             If Me.isSIL Or Me.isSIS Then
