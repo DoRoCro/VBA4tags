@@ -83,17 +83,17 @@ Public Property Let SystemID(Value As String)
     pSystemID = Value
 End Property
 
-Public Property Get isSIL() As String
+Public Property Get isSIL() As Boolean
     isSIL = pisSIL
 End Property
-Public Property Let isSIL(Value As String)
+Public Property Let isSIL(Value As Boolean)
     pisSIL = Value
 End Property
 
-Public Property Get isSIS() As String
+Public Property Get isSIS() As Boolean
     isSIS = pisSIS
 End Property
-Public Property Let isSIS(Value As String)
+Public Property Let isSIS(Value As Boolean)
     pisSIS = Value
 End Property
 
@@ -166,6 +166,10 @@ Public Sub FillTagHeaders(StartCell As Range)
     StartCell.Offset(0, 14).Formula = "Risks(Business)"
     StartCell.Offset(0, 15).Formula = "Justification"
     StartCell.Offset(0, 14).Formula = "Risks(Business)"
+    
+    StartCell.Offset(0, 16).Formula = "Criticality Post Review"
+    StartCell.Offset(0, 17).Formula = "Reason for change"
+    
 End Sub
 
 Sub SetDefaultCriticalityByFailureCode()
@@ -192,8 +196,11 @@ Sub SetDefaultCriticalityByFailureCode()
             Me.RiskLikelihood(Business) = ws.Range("C12")
             Me.Justification = "MAH Barrier: " & ws.Range("I17").Text & "; " & _
                                 "MAH comment: " & ws.Range("I19").Text & "; " & _
-                                "IPL/LOPA = " & ws.Range("J35").Text & _
                                 "; Regulatory override = " & ws.Range("I37").Text
+            If Me.isSIL Or Me.isSIS Then
+                Me.Justification = Me.Justification & "; In SIL/SIS Loop, therefore criticality = A"
+                Me.Criticality = "A"
+            End If
     End Select
 End Sub
 
