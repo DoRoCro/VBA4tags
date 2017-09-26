@@ -67,7 +67,7 @@ Public Sub SetupForSystemGroup(MAHlist As clsMAHlist)
         Set MAH = MAHlist.FindByID(fcode.ID)
         
         'update cells in ws based on MAHList entries
-        ws.Range("H17").Formula = MAH.FamilyID & " | " & MAH.Family & " | " & MAH.Component
+        ws.Range("H17").Formula = Left(MAH.FamilyID & " | " & MAH.Family & " | " & MAH.Component, 254)
         
         ws.Range("I19").Formula = MAH.Comment
         
