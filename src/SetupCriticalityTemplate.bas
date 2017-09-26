@@ -44,7 +44,7 @@ Sub CreateWorksheetsFromFailureCodeList()
             newWs.Name = rowCell(row, "FailureCode")  ' name sheet from failure code
             
             ' Insert default criticality assessment template here
-            Call CopyDefaultCriticalitiesIntoTemplateWorksheet(row, newWs, fcdcTbl)
+            CopyDefaultCriticalitiesIntoTemplateWorksheet row, newWs, fcdcTbl
             
             ' link output back to Failure codes sheet
             
@@ -123,10 +123,14 @@ Sub CopyDefaultCriticalitiesIntoTemplateWorksheet(codeRow As ListRow, _
         .Range("C34").Formula = rowCell(defaultsRow, "BC_Likelihood")
         .Range("F34").Formula = rowCell(defaultsRow, "Basis")
         
-        'insert default MAH barrier entries
+        'insert default MAH barrier entries if defined
         ' find row in default MAH bariers lookup table, ' insert it into H16 and H17
-        .Range("H17") = getDefaultMAHBarrierForFailureCode(codeStr, "MAH_Barrier_Family")
-        .Range("I17") = getDefaultMAHBarrierForFailureCode(codeStr)
+       
+        .Range("H17") = Left(getDefaultMAHBarrierForFailureCode(codeStr, "MAH_Family_ID") & " | " & _
+            getDefaultMAHBarrierForFailureCode(codeStr, "MAH_Barrier_Family") & " | " & _
+            getDefaultMAHBarrierForFailureCode(codeStr, "MAH_Barrier_Component"), 254)
+
+        '.Range("I17") = getDefaultMAHBarrierForFailureCode(codeStr)
         .Range("I19") = getDefaultMAHBarrierForFailureCode(codeStr, "Comment")
         
         
@@ -134,7 +138,7 @@ Sub CopyDefaultCriticalitiesIntoTemplateWorksheet(codeRow As ListRow, _
     End With
 End Sub
 
-Function getDefaultMAHBarrierForFailureCode(codeStr As String, Optional field As String = "MAH_Barrier_Component")
+Function getDefaultMAHBarrierForFailureCode(codeStr As String, field As String)
     
     Dim wb As Workbook
     Dim MAHws As Worksheet
@@ -146,7 +150,7 @@ Function getDefaultMAHBarrierForFailureCode(codeStr As String, Optional field As
     ' find row in table based on failure code
     Set MAHrow = getRow(MAHtbl, "FailureCode", codeStr)
     
-    getDefaultMAHBarrierForFailureCode = rowCell(MAHrow, field)
+    getDefaultMAHBarrierForFailureCode = rowCell(MAHrow, field).Text
 
 End Function
 

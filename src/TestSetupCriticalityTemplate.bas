@@ -66,9 +66,9 @@ Public Sub TestCopyDefaultCriticalitiesIntoTemplateWorksheet()
     Debug.Print ThisWorkbook.Worksheets("TestDefaultCriticalities").Range("B1").Formula
     Assert.Istrue ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("B1").Formula = "FA_CFBC"
     Assert.Istrue ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("B16").Formula = "E"
-    Assert.Istrue ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("C16").Value = 8
+    Assert.Istrue ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("C16").Value = 7
     Assert.Istrue ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("B22").Formula = "H"
-    Assert.Istrue ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("C22").Formula = "2"
+    Assert.Istrue ThisWorkbook.Worksheets("TestFailureCodeTemplate").Range("C22").Formula = "3"
 TestExit:
     Exit Sub
 TestFail:

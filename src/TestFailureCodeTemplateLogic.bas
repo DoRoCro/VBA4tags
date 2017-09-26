@@ -29,11 +29,11 @@ Public Sub ModuleCleanup()
     'this method runs once per module.
     Set Assert = Nothing
     Set Fakes = Nothing
-     'Reset all values in template to H1 before starting
+     'Reset all values in template to H3 before starting
     Dim rowStr As Variant
     For Each rowStr In Array("16", "22", "28", "34")
-        ws.Range("B" & rowStr).Value = "A"
-        ws.Range("C" & rowStr).Value = "8"
+        ws.Range("B" & rowStr).Value = "H"
+        ws.Range("C" & rowStr).Value = "3"
     Next
     
     'Set redundancy to no
@@ -61,11 +61,11 @@ End Sub
 Public Sub TestInitialize()
     'this method runs before every test in the module.
     
-    'Reset all values in template to H1 before starting
+    'Reset all values in template to H3 before starting
     Dim rowStr As Variant
     For Each rowStr In Array("16", "22", "28", "34")
         ws.Range("B" & rowStr).Value = "H"
-        ws.Range("C" & rowStr).Value = "1"
+        ws.Range("C" & rowStr).Value = "3"
     Next
     
     'Set redundancy to no
@@ -109,16 +109,17 @@ TestFail:
 End Sub
 
 '@TestMethod
-Public Sub TestSafetyA1GivesCAndSCE()
+Public Sub TestSafetyE7GivesAAndNotSCE()
     On Error GoTo TestFail
     
     'Arrange:
 
     'Act:
-    ws.Range("B16").Formula = "A"
+    ws.Range("B16").Formula = "E"
+    ws.Range("C16").Formula = "7"
     'Assert:
-    Assert.Istrue (ws.Range("K1") = "C")
-    Assert.Istrue (ws.Range("G6").Value = "YES")   ' is SCE
+    Assert.Istrue (ws.Range("K1") = "A")
+    Assert.Istrue (ws.Range("G6").Value = "NO")   ' is SCE
 TestExit:
     Exit Sub
 TestFail:
@@ -126,17 +127,17 @@ TestFail:
 End Sub
 
 '@TestMethod
-Public Sub TestSafetyA7GivesCAndSCE()
+Public Sub TestSafetyD5GivesAAndSCE()
     On Error GoTo TestFail
     
     'Arrange:
 
     'Act:
-    ws.Range("B16").Formula = "A"
-    ws.Range("C16").Formula = "7"
+    ws.Range("B16").Formula = "D"
+    ws.Range("C16").Formula = "5"
     
     'Assert:
-    Assert.Istrue (ws.Range("K1") = "C")        ' no rule explicitly sets high criticality from safety impact, but expect MAH override in practice
+    Assert.Istrue (ws.Range("K1") = "A")        ' no rule explicitly sets high criticality from safety impact, but expect MAH override in practice
     Assert.Istrue (ws.Range("G6").Value = "YES")   ' is SCE
     Assert.Istrue (ws.Range("G8").Value = 10)   ' CMMS Location priority
     
