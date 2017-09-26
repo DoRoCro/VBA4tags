@@ -141,3 +141,20 @@ Sub LoadTables(tags As clsTags, Systems As clsSystems, Disciplines As clsDiscipl
 'TODO Read in Ex list - optional, if not added to tag.
 
 End Sub
+Sub MoveSheetsToDiscplineWorkbook()
+    Dim wb As Workbook
+    Dim ws As Worksheet
+    Dim wsname As String
+    Set wb = ActiveWorkbook
+    For Each ws In wb.Worksheets
+        ws.Select
+        ws.Copy
+        wsname = ws.Name
+        ActiveWorkbook.SaveAs Filename:= _
+        "C:\Users\Douglas.Crooke\OneDrive - add energy group\Discipline - " & wsname & ".xlsx" _
+        , FileFormat:=xlOpenXMLWorkbook, CreateBackup:=False
+    wb.Activate
+    Next ws
+End Sub
+
+
