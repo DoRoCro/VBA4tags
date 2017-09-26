@@ -11,6 +11,7 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private pID As String
+Private pFamilyID As String
 Private pFamily As String
 Private pComponent As String
 Private pComment As String
@@ -22,6 +23,13 @@ Public Property Get ID() As String
 End Property
 Public Property Let ID(Value As String)
     pID = Value
+End Property
+
+Public Property Get FamilyID() As String
+    FamilyID = pFamilyID
+End Property
+Public Property Let FamilyID(Value As String)
+    pFamilyID = Value
 End Property
 
 Public Property Get Family() As String

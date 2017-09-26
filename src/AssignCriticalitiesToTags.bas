@@ -83,6 +83,7 @@ Sub AssignCriticalities()
         Set discWs = Discipline.CreateDisciplineOutputSheet(ThisWorkbook.Sheets)
         disciplineTags.OutputTagListings discWs.Range("A1")
     Next Discipline
+    Application.StatusBar = ""
 End Sub
 
 

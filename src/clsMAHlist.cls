@@ -39,10 +39,11 @@ Public Sub LoadTableProcess(table As ListObject)
         'Debug.Print row.index, row.Range(1, 1)
         With MAHDefault
             .ID = row.Range(1, 1).Text
+            .FamilyID = row.Range(1, 4).Text
             .Family = row.Range(1, 4).Text          'to come with #N/A entries
-            .Component = row.Range(1, 5).Text
-            .TypCriticality = row.Range(1, 6).Text
-            .Comment = row.Range(1, 7).Text
+            .Component = row.Range(1, 6).Text
+            .TypCriticality = row.Range(1, 7).Text
+            .Comment = row.Range(1, 8).Text
         End With
         'add it to collection
         Me.Add MAHDefault
@@ -59,10 +60,11 @@ Public Sub LoadTableUtility(table As ListObject)
         'Debug.Print row.index, row.Range(1, 1)
         With MAHDefault
             .ID = row.Range(1, 1).Text
-            .Family = row.Range(1, 9).Text          'to come with #N/A entries
-            .Component = row.Range(1, 10).Text
-            .TypCriticality = row.Range(1, 11).Text
-            .Comment = row.Range(1, 12).Text
+            .FamilyID = row.Range(1, 10)
+            .Family = row.Range(1, 11).Text          'to come with #N/A entries
+            .Component = row.Range(1, 12).Text
+            .TypCriticality = row.Range(1, 13).Text
+            .Comment = row.Range(1, 14).Text
         End With
         'add it to collection
         Me.Add MAHDefault
